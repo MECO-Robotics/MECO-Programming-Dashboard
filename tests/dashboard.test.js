@@ -53,7 +53,7 @@ test('showcase advances, wraps, pauses for exploration, and exits on Escape',()=
 test('team checklist and autonomous destinations respond to interaction',()=>{
  const ui=setup();ui.click('[data-open="mission"]');
  ui.doc.querySelectorAll('.checklist input').forEach(input=>input.click());
- assert.match(ui.doc.querySelector('#ready-status').textContent,/Practice robot ready/);
+ assert.match(ui.doc.querySelector('#ready-status').textContent,/The practice robot is ready/);
  ui.click('#close-dialog');ui.click('[data-open="auto"]');ui.click('[data-route="score"]');
  assert.ok(ui.doc.querySelector('.interactive-field').classList.contains('scoring'));
  ui.click('[data-route="reset"]');assert.ok(!ui.doc.querySelector('.interactive-field').classList.contains('scoring'));ui.close();
@@ -80,7 +80,7 @@ test('carousel keeps selected dot focus and pauses automatic advancement while e
  ui.click('#tour');
  ui.doc.querySelector('#feature-copy button').focus();
  for(let i=0;i<20;i++)ui.tick();
- assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/la Petit Fromage/);
+ assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/La Petit Fromage/);
  ui.doc.querySelector('#tour').focus();
  for(let i=0;i<10;i++)ui.tick();
  assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Mission Control/);
