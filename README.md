@@ -35,7 +35,8 @@ Content and engineering evidence were checked against the public repository READ
 
 - `src/projects.js`: project titles, categories, repository links, `websites` button labels/URLs, explanations, engineering decisions, evidence links, and accent colors.
 - `src/main.js`: rendering, project visuals, demos, showcase timing, and controls.
-- `src/style.css`: MECO theme, responsive layouts, and monitor mode.
+- `src/style.css`: responsive layouts, activities, and monitor mode.
+- `src/identity.css`: MECO exhibit styling, typography, blue masthead, paper-colored directory and reading sheets, and dark photographic presentation area.
 - `public/assets/`: bundled team logo and robot photos.
 
 When adding a project, add its content to `projects.js` and provide an appropriate visual/activity in `main.js`. Update the five-project labels and counters in `main.js` as needed. There is no GitHub API dependency: descriptions and repository links are curated, rather than fetched at runtime.
@@ -52,7 +53,7 @@ The test suite covers project filters, activities, showcase timing and wraparoun
 
 ## Branding and asset credits
 
-- Official colors from MECO Mission Control: blue `#16478e`, red `#ea1c2d`; the exhibit uses a dark navy background, muted blue accents, and a numbered project directory.
+- Official colors from MECO Mission Control: blue `#16478e`, red `#ea1c2d`; the exhibit uses a team-blue masthead, warm off-white project directory and reading sheets, red index numbers, and a dark photographic presentation area.
 - `public/assets/meco-logo.svg`: MECO's white logo, sourced from the existing Mission Control web repository's `public/meco-main-logo-white.svg`.
 - `public/assets/remy.jpg`: Remy photograph from [MECO's 2026 REBUILT page](https://www.mecorobotics.org/frc/2026-rebuilt). Team branding and photography remain the property of their respective owners.
 - Team background: [MECO Robotics](https://www.mecorobotics.org/).

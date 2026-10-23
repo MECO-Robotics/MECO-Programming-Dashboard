@@ -1,0 +1,123 @@
+/* MECO exhibit identity: team-blue masthead, paper catalog, photographic stage. */
+:root {
+  color: #182538;
+  background: #f3f1eb;
+  --muted: #576170;
+  --line: #cacbc8;
+  --display: 'Arial Narrow', 'Avenir Next Condensed', 'Helvetica Neue', sans-serif;
+}
+body { background: #f3f1eb; }
+header {
+  color: white;
+  background: #16478e;
+  border-top: 4px solid #ea1c2d;
+  border-bottom: 0;
+}
+.brand-divider { background: #ffffff50; }
+.brand-caption, .brand-caption strong { color: white; }
+header .subtle { border-color: #ffffff65; }
+header .subtle:hover { background: #ffffff18; }
+main, footer { max-width: 1440px; padding-inline: 48px; }
+header { padding-inline: max(48px, calc((100% - 1344px) / 2)); }
+.intro { align-items: end; padding: 52px 0 40px; border-bottom: 0; }
+.intro > div { max-width: 910px; }
+.intro .eyebrow { color: #16478e; font-size: 12px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; margin-bottom: 14px; }
+h1 { font-family: var(--display); font-size: clamp(46px, 6.2vw, 84px); font-weight: 800; line-height: .98; letter-spacing: -2px; }
+.intro-copy { max-width: 620px; margin-top: 22px; font-size: 16px; color: #465364; }
+.team-website-link { color: #576170; flex-shrink: 0; padding-bottom: 3px; }
+.team-website-link span { color: #16478e; font-weight: 600; }
+.featured {
+  --muted: #acb7c5;
+  --line: #3b4149;
+  color: #f6f5f0;
+  background: #151c26;
+  border: 0;
+}
+.feature-slide { background: #151c26; grid-template-columns: 42% 58%; }
+.feature-copy { padding: 42px; }
+.feature-copy h2 { font-family: var(--display); font-size: clamp(38px, 4vw, 60px); font-weight: 750; letter-spacing: -1px; }
+.feature-copy .eyebrow { color: #c6cbd3; }
+.feature-number { color: #fff; }
+.feature-copy > p:not(.eyebrow) { font-size: 16px; line-height: 1.65; color: #d2d7df; }
+.button, .icon-button, .carousel-arrow { border-radius: 0; }
+.featured .primary { background: #f3f1eb; color: #17263c; border-color: #f3f1eb; }
+.featured .primary:hover { background: #cddcf1; border-color: #cddcf1; }
+.feature-bottom { background: #101720; }
+.feature-visual, .software-diagram, .visual-demo { background: #101720; }
+.photo-caption { font-size: 11px; letter-spacing: .8px; }
+.software-diagram { padding: 42px; }
+.diagram-heading { font-size: 17px; }
+.workflow h3 { font-family: var(--display); font-size: 25px; font-weight: 700; }
+.workflow p, .module-list dd { font-size: 14px; }
+.projects { padding: 64px 0 54px; }
+.section-heading { align-items: end; }
+.section-heading h2 { font-family: var(--display); font-size: 38px; font-weight: 750; letter-spacing: -.7px; }
+.section-heading > p { font-size: 12px; }
+.project-toolbar { margin-top: 24px; border-bottom: 2px solid #182538; }
+.filter { color: #576170; font-size: 14px; }
+.filter:hover, .filter.active { color: #16478e; }
+.filter.active { border-bottom-color: #ea1c2d; font-weight: 650; }
+.project-card { grid-template-columns: 60px minmax(0, 1fr) minmax(210px, 26%); padding: 34px 0; gap: 22px; }
+.project-index { color: #a12b34; font: 600 28px/1 var(--display); padding-top: 5px; }
+.card-category { color: #576170; font-size: 12px; }
+.project-card h3 { font-family: var(--display); font-weight: 750; font-size: 36px; line-height: 1.1; margin: 8px 0 12px; }
+.project-card p { color: #465364; font-size: 15px; max-width: 550px; }
+.project-language { color: #576170; }
+.project-links { border-left: 1px solid #c4c7cb; }
+.repository-link, .directory-link, .directory-details { color: #16478e; }
+.repository-link { font-weight: 700; }
+footer { border-top: 2px solid #182538; font-size: 12px; color: #465364; padding-top: 24px; padding-bottom: 30px; }
+footer a:hover { color: #16478e; text-decoration: underline; }
+/* Reading sheets use the same paper and ink as the project catalog. */
+dialog { --muted: #576170; --line: #c7cbd0; background: #f3f1eb; color: #182538; border: 0; border-top: 5px solid #16478e; border-radius: 0; box-shadow: 0 18px 60px #0006; }
+dialog::backdrop { background: #101720bb; }
+.dialog-top { background: #f3f1eb; border-bottom-color: #c7cbd0; }
+.dialog-top .icon-button { border-color: #9ca5b0; color: #182538; }
+#dialog-title { font: 750 44px/1.1 var(--display); letter-spacing: -1px; }
+.reading-tabs button { color: #576170; }
+.reading-tabs button.active { color: #16478e; border-bottom-color: #16478e; }
+.explanation { color: #26394d; font-size: 16px; }
+.project-purpose { color: #465364; border-left-color: #16478e; }
+.engineering-notes dt { color: #182538; font-size: 17px; }
+.engineering-notes dd { color: #465364; font-size: 15px; }
+.project-limitation, .network-note { color: #576170; }
+.evidence-links a, .related-link { color: #16478e; }
+.activity { border-color: #aeb6c0; }
+.demo-panel { background: #e7ebee; border: 0; border-radius: 0; }
+.demo-panel p { color: #465364; }
+dialog .outline, dialog .subtle { color: #16478e; border-color: #9caabb; }
+dialog .outline:hover, dialog .subtle:hover { background: #d3dce8; }
+dialog .icon-button { background: #f3f1eb; color: #16478e; border-color: #9caabb; }
+.sequence-slots span { background: #f3f1eb; border-color: #8392a5; }
+.sequence-slots .filled { border-color: #16478e; }
+.checklist label { background: #f3f1eb; border-color: #b3bcc7; }
+.checklist input:checked + span { color: #465364; }
+.checklist input { accent-color: #16478e; }
+button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible { outline-color: #b12836; }
+.featured button:focus-visible, .featured a:focus-visible, header button:focus-visible, header a:focus-visible { outline-color: #fff; }
+.showcase-mode { background: #101720; }
+.showcase-mode .feature-copy h2 { font-family: var(--display); }
+.showcase-mode .featured { border: 1px solid #39434f; }
+@media (max-width: 1100px) {
+  .feature-copy { padding: 30px; }
+  .project-card { grid-template-columns: 40px minmax(0, 1fr) 210px; gap: 18px; }
+  .intro { gap: 22px; }
+}
+@media (max-width: 760px) {
+  header, main, footer { padding-inline: 5%; }
+  .intro { padding: 32px 0; align-items: start; }
+  h1 { font-size: 49px; letter-spacing: -1.2px; }
+  .intro-copy { font-size: 15px; margin-top: 18px; }
+  .feature-slide { grid-template-columns: 1fr; }
+  .feature-copy { padding: 28px 24px; }
+  .feature-copy h2 { font-size: 38px; }
+  .software-diagram { padding: 28px; }
+  .projects { padding: 40px 0; }
+  .section-heading h2 { font-size: 32px; }
+  .project-card { grid-template-columns: 28px minmax(0, 1fr); gap: 12px; padding: 27px 0; }
+  .project-index { font-size: 22px; }
+  .project-card h3 { font-size: 30px; }
+  .project-links { border-left: 0; }
+  .filter { font-size: 12px; }
+  #dialog-title { font-size: 36px; }
+}
