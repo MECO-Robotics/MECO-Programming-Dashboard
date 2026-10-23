@@ -18,13 +18,8 @@ button:disabled { opacity: .4; cursor: default; }
 a { color: inherit; text-decoration: none; }
 button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid #91b5e5; outline-offset: 4px; }
 button, a { transition: background .15s, border-color .15s, color .15s; }
-header { border-top: 4px solid var(--red); min-height: 88px; padding: 18px 5%; display: flex; justify-content: space-between; align-items: center; gap: 20px; border-bottom: 1px solid var(--line); }
-.brand { display: flex; align-items: center; gap: 22px; }
-.brand img { width: 144px; height: auto; }
-.brand-divider { height: 28px; width: 1px; background: var(--line); }
-.brand-caption { color: var(--muted); font-size: 10px; line-height: 1.5; letter-spacing: .5px; }
-.brand-caption strong { display: block; font-size: 19px; color: #e9edf4; letter-spacing: 2px; }
-nav { display: flex; align-items: center; gap: 26px; font-size: 14px; }
+header { border-top: 4px solid var(--red); min-height: 70px; padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; gap: 20px; border-bottom: 1px solid var(--line); }
+nav { display: flex; width: 100%; justify-content: space-between; align-items: center; gap: 26px; font-size: 14px; }
 main, footer { max-width: 1380px; margin: auto; padding: 0 5%; }
 .intro { padding: 48px 0 38px; display: flex; justify-content: space-between; align-items: center; gap: 30px; }
 .eyebrow { font-size: 12px; font-weight: 500; line-height: 1.6; color: var(--muted); margin: 0 0 12px; display: flex; align-items: center; gap: 12px; }
@@ -167,16 +162,10 @@ body:has(dialog[open]) { overflow: hidden; }
   .project-card { grid-template-columns: 30px minmax(0, 1fr) 210px; gap: 16px; }
   .feature-copy { padding: 28px; }
   .feature-copy .eyebrow { flex-wrap: wrap; }
-  .brand img { width: 130px; }
   nav { gap: 18px; }
 }
 @media (max-width: 760px) {
-  header { min-height: 76px; padding-top: 15px; padding-bottom: 15px; }
-  .brand { gap: 12px; }
-  .brand-caption { font-size: 8px; }
-  .brand-caption strong { font-size: 17px; }
-  .brand img { width: 108px; }
-  nav > a { display: none; }
+  header { min-height: 66px; padding-top: 10px; padding-bottom: 10px; }
   nav .button { font-size: 11px; padding: 8px; }
   .intro { flex-wrap: wrap; padding: 28px 0; gap: 20px; }
   h1 { font-size: 32px; }
@@ -210,7 +199,7 @@ body:has(dialog[open]) { overflow: hidden; }
   .demo-panel { padding: 17px; }
   .demo-buttons .button { padding: 10px 12px; }
 }
-@media (max-width: 370px) { .brand-caption, .brand-divider { display: none; } .filter { padding: 8px; } .slide-dot { width: 20px; } }
+@media (max-width: 370px) { .filter { padding: 8px; } .slide-dot { width: 20px; } }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; transition: none !important; } .feature-slide.slide-enter, .feature-slide.outgoing { animation: none; } }
 
