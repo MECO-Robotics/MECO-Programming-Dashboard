@@ -1,10 +1,133 @@
 export const github = 'https://github.com/MECO-Robotics/';
 export const projects = [
-  { id: 'remy', title: 'Meet Remy', name: 'Remy robot code', category: 'Robots', label: '2026 COMPETITION ROBOT', icon: '⌘', color: '#6fa9ff', repo: '2026-Rebuilt', language: 'Java', hook: 'A robot is hardware. Code brings it to life.', simple: 'Remy picks up balls, aims, and shoots. Our code tells each part what to do—and when to do it.', technical: 'Command-based Java coordinates the swerve drivetrain, intake, and shooter. Subsystem IO separates real hardware from simulation and replay, with AdvantageKit telemetry to help understand robot behavior.', challenge: 'Can you put a scoring cycle in the right order?', steps: ['Collect', 'Aim', 'Shoot'], fact: 'One action, many moving parts.', related: [], websites: [{ label: 'Robot website', url: 'https://www.mecorobotics.org/frc/2026-rebuilt' }, { label: '3D robot viewer', url: 'https://meco-robotics.github.io/robot-cad-embeds/' }] },
-  { id: 'scouting', title: 'See the game differently.', name: 'Scouting software', category: 'Team tools', label: 'QRSCOUT + FIELDSCOUT', icon: '▥', color: '#64d4bf', repo: 'FieldScout', language: 'Scouting ecosystem', hook: 'Turn “that robot was awesome” into useful data.', simple: 'Scouts watch matches and record what robots do. Our apps turn those observations into charts that help the team make decisions.', technical: 'QRScout captures match observations and encodes them for transfer. FieldScout keeps raw entries in an offline-first desktop spreadsheet and calculates separate summaries, rankings, and charts. Its iPad Portal works over local Wi-Fi.', challenge: 'Be a scout! Record a few practice scores.', fact: 'Good decisions start with good observations.', related: ['QRScout_MECO', 'QRScout-Legacy', 'QRScout-app-'], websites: [{ label: 'Open QRScout', url: 'https://meco-robotics.github.io/QRScout_MECO/' }, { label: 'Legacy preview', url: 'https://meco-robotics.github.io/QRScout-Legacy-Preview/' }, { label: 'Download FieldScout', url: 'https://github.com/MECO-Robotics/FieldScout/releases/latest' }] },
-  { id: 'note', title: 'Small robot. Big ideas.', name: '16th Note', category: 'Robots', label: 'TANK-DRIVE ROBOT', icon: 'drivetrain', color: '#d4b2ff', repo: '16th_Note', language: 'Java', hook: 'Drive, collect, shoot. Make every part work together.', simple: '16th Note uses wheels on its left and right sides to steer. Its code coordinates driving, picking up game pieces, and shooting.', technical: 'The tank drivetrain uses the rebuilt command/subsystem/IO structure, AdvantageKit logs, SPARK MAX control, and PathPlanner autonomous routines.', challenge: 'Build a scoring sequence for 16th Note.', steps: ['Collect', 'Aim', 'Shoot'], fact: 'Different drivetrains. Shared programming ideas.', related: [] },
-  { id: 'mission', title: 'Great robots take teamwork.', name: 'Mission Control', category: 'Team tools', label: 'TEAM WORKSPACE · PROTOTYPE', icon: '▦', color: '#ff9f9f', repo: 'meco-mission-control-web', language: 'TypeScript · React', hook: 'A shared plan for everything behind the robot.', simple: 'Building a robot takes lots of jobs. Mission Control is a workspace being developed to help the team organize tasks, parts, and people.', technical: 'The web prototype supports planning, readiness review, inventory, manufacturing coordination, and roster workflows. Separate web, mobile, and API repositories make up the Mission Control system. It is not yet serving real operational data.', challenge: 'Get a practice robot ready for its next match.', fact: 'Software helps the people behind the robot, too.', related: ['meco-mission-control-mobile', 'meco-mission-control-platform'], websites: [{ label: 'Open Mission Control', url: 'https://meco-pm.duckdns.org/' }] },
-  { id: 'auto', title: 'Teach a robot to find its way.', name: 'AutoDrive', category: 'Autonomy', label: 'SIMULATION + MACHINE LEARNING', icon: '⌁', color: '#f4cf78', repo: 'AutoDrive', language: 'Python', hook: 'Practice in a virtual field. Learn from every attempt.', simple: 'AutoDrive explores robot decisions in a simulated game. Robots practice collecting, scoring, and defending while software plans how to move.', technical: 'GPU-vectorized training uses PPO for defense against deterministic offense strategies. AD* plans routes and a robot controller follows them. Simulated physics and scoring support experiments; this exhibit is a simplified route illustration, not the training engine.', challenge: 'Choose a destination and watch a planned route.', fact: 'A simulation is a place to test an idea.', related: [], websites: [{ label: 'Training monitor (team network)', url: 'http://100.121.248.52:8765/' }] },
+  {
+    "id": "remy",
+    "title": "Remy",
+    "name": "Remy robot code",
+    "category": "Robots",
+    "label": "2026 competition robot",
+    "color": "#91b5e5",
+    "repo": "2026-Rebuilt",
+    "language": "Java",
+    "hook": "Swerve drive, intake, and shooter control for our 2026 robot.",
+    "simple": "Remy is our 2026 competition robot. Its code controls the wheels, collects game pieces, and coordinates aiming and shooting.",
+    "technical": "Command-based Java coordinates the swerve drivetrain, intake, and shooter. Subsystem IO separates real hardware from simulation and replay, with AdvantageKit telemetry to help understand robot behavior.",
+    "challenge": "Put the scoring actions in order.",
+    "steps": [
+      "Collect",
+      "Aim",
+      "Shoot"
+    ],
+    "related": [],
+    "websites": [
+      {
+        "label": "Robot website",
+        "url": "https://www.mecorobotics.org/frc/2026-rebuilt"
+      },
+      {
+        "label": "3D robot viewer",
+        "url": "https://meco-robotics.github.io/robot-cad-embeds/"
+      }
+    ]
+  },
+  {
+    "id": "scouting",
+    "title": "Scouting software",
+    "name": "Scouting software",
+    "category": "Team tools",
+    "label": "QRScout & FieldScout",
+    "color": "#91b5e5",
+    "repo": "FieldScout",
+    "language": "Web, iPad & desktop",
+    "hook": "Match data collection with QRScout and analysis in FieldScout.",
+    "simple": "Scouts record what happens during a match in QRScout. FieldScout organizes those observations into team summaries, charts, and rankings.",
+    "technical": "QRScout captures match observations and encodes them for transfer. FieldScout keeps raw entries in an offline-first desktop spreadsheet and calculates separate summaries, rankings, and charts. Its iPad Portal works over local Wi-Fi.",
+    "challenge": "Record scored game pieces.",
+    "related": [
+      "QRScout_MECO",
+      "QRScout-Legacy",
+      "QRScout-app-"
+    ],
+    "websites": [
+      {
+        "label": "Open QRScout",
+        "url": "https://meco-robotics.github.io/QRScout_MECO/"
+      },
+      {
+        "label": "Legacy preview",
+        "url": "https://meco-robotics.github.io/QRScout-Legacy-Preview/"
+      },
+      {
+        "label": "Download FieldScout",
+        "url": "https://github.com/MECO-Robotics/FieldScout/releases/latest"
+      }
+    ]
+  },
+  {
+    "id": "note",
+    "title": "16th Note",
+    "name": "16th Note",
+    "category": "Robots",
+    "label": "Tank-drive robot",
+    "color": "#91b5e5",
+    "repo": "16th_Note",
+    "language": "Java",
+    "hook": "Driving, intake, and shooter code for our small tank-drive robot.",
+    "simple": "16th Note steers by changing the speed of its left and right wheels. Its code also controls the intake and shooter.",
+    "technical": "The tank drivetrain uses the rebuilt command/subsystem/IO structure, AdvantageKit logs, SPARK MAX control, and PathPlanner autonomous routines.",
+    "challenge": "Put the scoring actions in order.",
+    "steps": [
+      "Collect",
+      "Aim",
+      "Shoot"
+    ],
+    "related": []
+  },
+  {
+    "id": "mission",
+    "title": "Mission Control",
+    "name": "Mission Control",
+    "category": "Team tools",
+    "label": "Team management · Prototype",
+    "color": "#91b5e5",
+    "repo": "meco-mission-control-web",
+    "language": "TypeScript · React",
+    "hook": "Planning, inventory, and build coordination in one team workspace.",
+    "simple": "Mission Control brings tasks, parts, and team information into one workspace. It includes tools for planning builds and checking robot readiness.",
+    "technical": "The web prototype supports planning, readiness review, inventory, manufacturing coordination, and roster workflows. Separate web, mobile, and API repositories make up the Mission Control system. It is not yet serving real operational data.",
+    "challenge": "Complete a sample pre-match checklist.",
+    "related": [
+      "meco-mission-control-mobile",
+      "meco-mission-control-platform"
+    ],
+    "websites": [
+      {
+        "label": "Open Mission Control",
+        "url": "https://meco-pm.duckdns.org/"
+      }
+    ]
+  },
+  {
+    "id": "auto",
+    "title": "AutoDrive",
+    "name": "AutoDrive",
+    "category": "Autonomy",
+    "label": "Robot simulation",
+    "color": "#91b5e5",
+    "repo": "AutoDrive",
+    "language": "Python",
+    "hook": "Simulated matches for testing path planning and defensive strategies.",
+    "simple": "AutoDrive runs simulated robot matches to test movement and strategy. It combines planned routes with machine learning experiments for defense.",
+    "technical": "GPU-vectorized training uses PPO for defense against deterministic offense strategies. AD* plans routes and a robot controller follows them. Simulated physics and scoring support experiments; this exhibit is a simplified route illustration, not the training engine.",
+    "challenge": "Choose a destination.",
+    "related": [],
+    "websites": [
+      {
+        "label": "Training monitor (team network)",
+        "url": "http://100.121.248.52:8765/"
+      }
+    ]
+  }
 ];
 export function nextProject(index, count = projects.length) { return (index + 1) % count; }
 export function sequenceFeedback(sequence) {

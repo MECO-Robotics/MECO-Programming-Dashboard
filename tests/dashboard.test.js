@@ -30,10 +30,10 @@ test('all requested projects render and category filters recover the full catalo
 test('sequence gives corrective feedback, resets, and recognizes a scoring cycle',()=>{
  const ui=setup();ui.click('[data-open="remy"]');
  for(const s of ['Shoot','Aim','Collect'])ui.click(`[data-step="${s}"]`);
- assert.match(ui.doc.querySelector('#demo-feedback').textContent,/Almost/);
+ assert.match(ui.doc.querySelector('#demo-feedback').textContent,/Collect a game piece/);
  ui.click('#reset-sequence');
  for(const s of ['Collect','Aim','Shoot'])ui.click(`[data-step="${s}"]`);
- assert.match(ui.doc.querySelector('#demo-feedback').textContent,/You did it/);
+ assert.match(ui.doc.querySelector('#demo-feedback').textContent,/Correct:/);
  ui.click('[data-level="technical"]');assert.match(ui.doc.querySelector('.explanation').textContent,/AdvantageKit/);
  assert.match(ui.doc.querySelector('#sequence-slots').textContent,/Collect/);ui.close();
 });
@@ -44,7 +44,7 @@ test('scouting counter stays nonnegative and project reopening resets demo state
 });
 test('showcase advances, wraps, pauses for exploration, and exits on Escape',()=>{
  const ui=setup();ui.click('#tour');assert.ok(ui.doc.body.classList.contains('showcase-mode'));
- for(let i=0;i<10;i++)ui.tick();assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/See the game/);
+ for(let i=0;i<10;i++)ui.tick();assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Scouting software/);
  for(let i=0;i<40;i++)ui.tick();assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Remy/);
  ui.click('[data-open="remy"]');assert.ok(!ui.doc.body.classList.contains('showcase-mode'));
  ui.click('#close-dialog');ui.click('#tour');ui.doc.dispatchEvent(new ui.window.KeyboardEvent('keydown',{key:'Escape'}));
@@ -61,7 +61,7 @@ test('team checklist and autonomous destinations respond to interaction',()=>{
 test('carousel wraps in both directions and keeps outgoing slides inaccessible',()=>{
  const ui=setup();
  ui.click('[data-direction="-1"]');
- assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Teach a robot/);
+ assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/AutoDrive/);
  const outgoing=ui.doc.querySelector('.outgoing');
  assert.equal(outgoing.getAttribute('aria-hidden'),'true');
  assert.ok(outgoing.hasAttribute('inert'));
@@ -80,9 +80,9 @@ test('carousel keeps selected dot focus and pauses automatic advancement while e
  ui.click('#tour');
  ui.doc.querySelector('#feature-copy button').focus();
  for(let i=0;i<20;i++)ui.tick();
- assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Small robot/);
+ assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/16th Note/);
  ui.doc.querySelector('#tour').focus();
  for(let i=0;i<10;i++)ui.tick();
- assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Great robots/);
+ assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Mission Control/);
  ui.close();
 });

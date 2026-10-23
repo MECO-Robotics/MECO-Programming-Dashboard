@@ -8,16 +8,16 @@ Visit **[MECO Programming Dashboard](https://meco-robotics.github.io/MECO-Progra
 
 ## At an outreach event
 
-- **Explore:** select a project card. Each project has a plain-language “The big idea” explanation and an “Under the hood” explanation for visitors interested in the technology.
+- **Explore:** select a project card. Each project has a plain-language “Overview” explanation and an “Technical details” explanation for visitors interested in the technology.
 - **Try it:** sequence a scoring cycle, count practice scores, complete a readiness checklist, or select an illustrated autonomous route. All activity state resets when reopening a project; nothing is uploaded or saved.
-- **Showcase:** select “Start showcase” to switch to a larger monitor layout and slide through all five projects every 10 seconds in a revolving carousel. The last project slides forward into the first, and previous navigation wraps in reverse. Use the dots, previous/next arrows, or a horizontal touch swipe to select a project. Reduced-motion preferences disable the sliding animation. “Pause showcase” or Escape returns to the normal layout. Opening an activity stops the showcase. Rotation pauses while the browser tab is hidden or keyboard focus is inside the featured slide.
+- **Showcase:** select “Start slideshow” to switch to a larger monitor layout and slide through all five projects every 10 seconds in a revolving carousel. The last project slides forward into the first, and previous navigation wraps in reverse. Use the dots, previous/next arrows, or a horizontal touch swipe to select a project. Reduced-motion preferences disable the sliding animation. “Stop slideshow” or Escape returns to the normal layout. Opening an activity stops the showcase. Rotation pauses while the browser tab is hidden or keyboard focus is inside the featured slide.
 - **Full screen:** select “Full screen.” Browser support and permissions may vary; the browser’s own full-screen command also works.
 - **Keyboard:** Tab navigates controls; Enter/Space activates buttons. Escape closes the project dialog and stops the showcase. Left/Right changes the featured project when focus is outside a button, link, input, or dialog.
 - The exhibit supports landscape, portrait, and small screens, keyboard focus indicators, native modal focus containment, and reduced-motion preferences.
 
 An internet connection is required to open the GitHub Pages site and external project websites. The exhibit activities run in the browser without sending data to a server.
 
-The “From East Orlando to the competition field” link opens the team website (replacing the former “Meet the team” navigation item). Project website buttons appear on the carousel, project cards, and project dialogs. Available destinations include Remy's season page and 3D viewer, QRScout and its legacy preview, FieldScout downloads, Mission Control at `https://meco-pm.duckdns.org/`, and the AutoDrive training monitor. The AutoDrive monitor is labeled **team network** because its `100.121.248.52:8765` address requires access to that network; it is not a public website. Website links open in a new tab. 16th Note has no configured website.
+The “East Orlando, Florida” location and “Team website” link open the team website. Project website buttons appear on the carousel, project cards, and project dialogs. Available destinations include Remy's season page and 3D viewer, QRScout and its legacy preview, FieldScout downloads, Mission Control at `https://meco-pm.duckdns.org/`, and the AutoDrive training monitor. The AutoDrive monitor is labeled **team network** because its `100.121.248.52:8765` address requires access to that network; it is not a public website. Website links open in a new tab. 16th Note has no configured website.
 
 ## Featured projects
 
@@ -52,12 +52,12 @@ The test suite covers project filters, activities, showcase timing and wraparoun
 
 ## Branding and asset credits
 
-- Official colors from MECO Mission Control: blue `#16478e`, red `#ea1c2d`; the exhibit adds a dark navy background and project accents.
+- Official colors from MECO Mission Control: blue `#16478e`, red `#ea1c2d`; the exhibit uses a dark navy background, muted blue accents, and simple project cards.
 - `public/assets/meco-logo.svg`: MECO's white logo, sourced from the existing Mission Control web repository's `public/meco-main-logo-white.svg`.
 - `public/assets/remy.jpg`: Remy photograph from [MECO's 2026 REBUILT page](https://www.mecorobotics.org/frc/2026-rebuilt). Team branding and photography remain the property of their respective owners.
 - Team background: [MECO Robotics](https://www.mecorobotics.org/).
 
-16th Note displays `public/assets/16th-note-4k.png` (3840 × 3280 pixels). The original 192 × 164 screenshot remains unchanged at `public/assets/16th-note-original.png`. The display asset was conservatively restored with built-in imagegen, then resized to a 3840-pixel long edge. It remains soft: an upscale cannot recover missing source detail. CSS fades its edges into the navy background and applies a small contrast adjustment. Display width remains capped at 384px to avoid excessive enlargement. The drivetrain icon remains; there are no music-note graphics.
+16th Note displays `public/assets/16th-note-4k.png` (3840 × 3280 pixels). The original 192 × 164 screenshot remains unchanged at `public/assets/16th-note-original.png`. The display asset was conservatively restored with built-in imagegen, then resized to a 3840-pixel long edge. It remains soft: an upscale cannot recover missing source detail. CSS fades its edges into the navy background and applies a small contrast adjustment. Display width remains capped at 384px to avoid excessive enlargement. There are no music-note graphics.
 
 ### Image restoration prompt
 
