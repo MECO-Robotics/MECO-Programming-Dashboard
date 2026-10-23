@@ -8,7 +8,7 @@ Visit **[MECO Programming Dashboard](https://meco-robotics.github.io/MECO-Progra
 
 ## At an outreach event
 
-- **Explore:** select a project card. Each project has a plain-language “Overview” section and a “Technical details” section for visitors interested in the technology.
+- **Explore:** select a project name or “Details and activity” in the project directory. Each project has a plain-language “Overview” section and a “Technical details” section for visitors interested in the technology.
 - **Try it:** sequence a scoring cycle, count practice scores, complete a readiness checklist, or select an illustrated autonomous route. Each activity resets when you reopen its project; nothing is uploaded or saved.
 - **Showcase:** select “Start slideshow” to switch to a larger monitor layout and slide through all five projects every 10 seconds in a revolving carousel. The last project slides forward into the first, and previous navigation wraps in reverse. Use the dots, previous and next arrows, or a horizontal touch swipe to select a project. Reduced-motion preferences disable the sliding animation. Selecting “Stop slideshow” or pressing Escape returns to the normal layout. Opening an activity stops the showcase. Rotation pauses while the browser tab is hidden or keyboard focus is inside the featured slide.
 - **Full screen:** select “Full screen.” Browser support and permissions may vary; the browser’s own full-screen command also works.
@@ -17,7 +17,7 @@ Visit **[MECO Programming Dashboard](https://meco-robotics.github.io/MECO-Progra
 
 An internet connection is required to open the GitHub Pages site and external project websites. The exhibit activities run in the browser without sending data to a server.
 
-The link labeled “East Orlando, Florida” and “Team website” opens the team website. Project website buttons appear on the carousel, project cards, and project dialogs. Available destinations include Remy's season page and 3D viewer, QRScout and its legacy preview, FieldScout downloads, Mission Control at `https://meco-pm.duckdns.org/`, and the AutoDrive training monitor. The AutoDrive monitor is labeled **team network** because its `100.121.248.52:8765` address requires access to that network; it is not a public website. Website links open in a new tab. La Petit Fromage has no configured website.
+The link labeled “East Orlando, Florida” and “Team website” opens the team website. Project website buttons appear on the carousel, the project directory, and project dialogs. Available destinations include Remy's season page and 3D viewer, QRScout and its legacy preview, FieldScout downloads, Mission Control at `https://meco-pm.duckdns.org/`, and the AutoDrive training monitor. The AutoDrive monitor is labeled **team network** because its `100.121.248.52:8765` address requires access to that network; it is not a public website. Website links open in a new tab. La Petit Fromage has no configured website.
 
 ## Featured projects
 
@@ -29,7 +29,7 @@ The link labeled “East Orlando, Florida” and “Team website” opens the te
 | Mission Control | [meco-mission-control-web](https://github.com/MECO-Robotics/meco-mission-control-web) | meco-mission-control-mobile, meco-mission-control-platform |
 | AutoDrive | [AutoDrive](https://github.com/MECO-Robotics/AutoDrive) | — |
 
-Content was checked against the public repository READMEs on October 22, 2026. Mission Control is explicitly labeled as a prototype. The mini activities, field paths, chart data, and planning board are educational illustrations, not embedded production applications or live telemetry. AutoDrive's actual training uses PPO defense and AD* route planning; the exhibit does not execute that engine.
+Content was checked against the public repository READMEs on October 22, 2026. Mission Control is explicitly labeled as a prototype. The mini activities and field paths are educational illustrations, not embedded production applications or live telemetry. The scouting diagram explains the data workflow, and the Mission Control panel lists its prototype modules. AutoDrive's actual training uses PPO defense and AD* route planning; the exhibit does not execute that engine.
 
 ## Editing the exhibit
 
@@ -52,7 +52,7 @@ The test suite covers project filters, activities, showcase timing and wraparoun
 
 ## Branding and asset credits
 
-- Official colors from MECO Mission Control: blue `#16478e`, red `#ea1c2d`; the exhibit uses a dark navy background, muted blue accents, and simple project cards.
+- Official colors from MECO Mission Control: blue `#16478e`, red `#ea1c2d`; the exhibit uses a dark navy background, muted blue accents, and a numbered project directory.
 - `public/assets/meco-logo.svg`: MECO's white logo, sourced from the existing Mission Control web repository's `public/meco-main-logo-white.svg`.
 - `public/assets/remy.jpg`: Remy photograph from [MECO's 2026 REBUILT page](https://www.mecorobotics.org/frc/2026-rebuilt). Team branding and photography remain the property of their respective owners.
 - Team background: [MECO Robotics](https://www.mecorobotics.org/).
