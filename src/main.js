@@ -19,8 +19,8 @@ const dialog = document.querySelector('dialog');
 function fieldMarkup(interactive=false) { return `<div class="field ${interactive?'interactive-field':''}" role="img" aria-label="A robot travels around a central obstacle to collect game pieces or reach a goal."><div class="field-line"></div><div class="field-goal">GOAL</div><svg class="route" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M 13 79 L 33 79 L 33 23 L 88 23"/></svg><span class="field-bot">8324</span><span class="fuel fuel-one"></span><span class="fuel fuel-two"></span><span class="fuel fuel-three"></span><span class="field-caption">Route illustration · Not a live robot</span></div>`; }
 function visual(p) {
  if(p.id==='remy') return `<img class="robot-photo" src="${asset('remy.jpg')}" alt="Remy, MECO’s blue-bumpered 8324 competition robot, lit in blue and red"><div class="photo-caption"> REMY <span>2026 / REBUILT</span></div>`;
- if(p.id==='auto') return `<div class="visual-demo"><p class="mono">Route planning</p>${fieldMarkup()}<span class="visual-note">Example route around an obstacle.</span></div>`;
- if(p.id==='scouting') return `<figure class="software-preview"><img src="${asset('scouting-preview.png')}" alt="QRScout match form with autonomous, teleop, and endgame scouting fields"><figcaption><strong>QRScout</strong><span>Match observations are transferred to FieldScout for analysis.</span></figcaption></figure>`;
+ if(p.id==='auto') return `<figure class="software-preview"><img src="${asset('autodrive-preview.png')}" alt="AutoDrive simulation showing robots, game pieces, and planned paths on the 2026 REBUILT field"><figcaption><strong>AutoDrive simulation</strong><span>Robots and routes on the simulated competition field.</span></figcaption></figure>`;
+ if(p.id==='scouting') return `<figure class="software-preview"><img src="${asset('scouting-preview.png')}" alt="MECO TEAM 8324 QRScout match form with autonomous, teleop, and endgame scouting fields"><figcaption><strong>QRScout</strong><span>Match observations are transferred to FieldScout for analysis.</span></figcaption></figure>`;
  if(p.id==='mission') return `<div class="software-diagram"><p class="diagram-heading">Mission Control</p><dl class="module-list"><div><dt>Planning</dt><dd>Build tasks and manufacturing coordination</dd></div><div><dt>Inventory</dt><dd>Parts and equipment records</dd></div><div><dt>Readiness</dt><dd>Robot checks and preparation</dd></div><div><dt>Team</dt><dd>Roster and team information</dd></div></dl><p class="diagram-caption">Prototype · Web, mobile, and API repositories</p></div>`;
  return `<div class="note-photo-stage"><img class="note-photo" src="${asset('16th-note-4k.png')}" width="3840" height="3280" alt="La Petit Fromage, the small tank-drive robot with a red 9924 bumper, in the team workshop"></div><div class="photo-caption">La Petit Fromage <span>TANK-DRIVE ROBOT</span></div>`;
 }
@@ -71,11 +71,11 @@ const previews = {
  scouting: ['scouting-preview.png', 'QRScout match recording screen'],
  note: ['16th-note-4k.png', 'La Petit Fromage development robot'],
  mission: ['mission-preview.png', 'Mission Control task details'],
- auto: ['autodrive-preview.svg', 'Illustrated robot route around a field obstacle'],
+ auto: ['autodrive-preview.png', 'AutoDrive robot simulation on the REBUILT field'],
 };
 function preview(p) {
  const [file, description] = previews[p.id];
- return `<button class="project-preview preview-${p.id}" data-open="${p.id}" aria-label="Explore ${p.name}"><img src="${asset(file)}" alt="${description}" loading="lazy" width="320" height="200">${p.id==='auto'?'<span>Route illustration</span>':''}</button>`;
+ return `<button class="project-preview preview-${p.id}" data-open="${p.id}" aria-label="Explore ${p.name}"><img src="${asset(file)}" alt="${description}" loading="lazy" width="320" height="200"></button>`;
 }
 function renderCards() {
  const visible=projects.filter(p=>category==='All projects'||p.category===category);

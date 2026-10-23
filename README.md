@@ -56,9 +56,9 @@ The test suite covers project filters, activities, carousel wraparound, touch sw
 - Official colors from MECO Mission Control: blue `#16478e`, red `#ea1c2d`; the exhibit uses a team-blue masthead, a consistent dark navy background across the project directory, project details, activities, and presentation area, with light text, pale blue links, and red navigation accents.
 - `public/assets/meco-logo.svg`: MECO's white logo, sourced from the existing Mission Control web repository's `public/meco-main-logo-white.svg`.
 - `public/assets/remy.jpg`: Remy photograph from [MECO's 2026 REBUILT page](https://www.mecorobotics.org/frc/2026-rebuilt). Team branding and photography remain the property of their respective owners.
-- `public/assets/scouting-preview.png`: QRScout screenshot from the team’s [QRScout_MECO repository](https://github.com/MECO-Robotics/QRScout_MECO/blob/main/docs/screenshots/default-config-dcmp-v1-fullscreen.png), showing example match data and upstream Red Hawk Robotics branding.
+- `public/assets/scouting-preview.png`: captured from the live [MECO QRScout app](https://meco-robotics.github.io/QRScout_MECO/) on October 23, 2026, showing its dark TEAM 8324 interface. Only browser chrome was cropped out.
 - `public/assets/mission-preview.png`: prototype task screenshot from [Mission Control](https://github.com/MECO-Robotics/meco-mission-control-web/blob/main/docs/ui-audit/task-desktop.png).
-- `public/assets/autodrive-preview.svg`: an exhibit route illustration, not a screenshot of AutoDrive or live telemetry.
+- `public/assets/autodrive-preview.png`: user-provided AutoDrive simulation screenshot, displayed in the feature panel and directory. The optional activity remains a separate route illustration.
 - Team background: [MECO Robotics](https://www.mecorobotics.org/).
 
 The photo of La Petit Fromage uses `public/assets/16th-note-4k.png` (3840 × 3280 pixels). The original 192 × 164 screenshot remains unchanged at `public/assets/16th-note-original.png`. The display asset was conservatively restored with built-in imagegen, then resized to a 3840-pixel long edge. It remains soft: an upscale cannot recover missing source detail. CSS fades its edges into the navy background and applies a small contrast adjustment. The display width remains capped at 384px to avoid excessive enlargement. There are no music-note graphics.
