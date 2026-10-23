@@ -248,7 +248,6 @@ export const projects = [
     "shortName": "AutoDrive"
   }
 ];
-export function nextProject(index, count = projects.length) { return (index + 1) % count; }
 export function sequenceFeedback(sequence) {
   return sequence.join(',') === 'Collect,Aim,Shoot' ? 'success' : sequence.length >= 3 ? 'retry' : 'pending';
 }

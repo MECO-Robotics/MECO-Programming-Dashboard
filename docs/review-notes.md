@@ -1,3 +1,5 @@
+> Update: The carousel is now manual, with floating arrows, touch swipes, and horizontal trackpad gestures. Slideshow controls and timing described in the historical review below have been removed. The directory now includes previews, and the scouting panel shows a repository screenshot.
+
 # Outreach and judging review
 
 Review started October 23, 2026. These are walkthrough findings, not feedback from actual judges or visitors. The review does not predict award results.

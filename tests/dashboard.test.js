@@ -43,14 +43,7 @@ test('scouting counter stays nonnegative and project reopening resets demo state
  ui.click('#plus-score');ui.click('#plus-score');ui.click('#minus-score');assert.equal(ui.doc.querySelector('#score').value,'1');
  ui.click('#close-dialog');ui.click('[data-open="scouting"]');assert.equal(ui.doc.querySelector('#score').value,'0');ui.close();
 });
-test('showcase advances, wraps, pauses for exploration, and exits on Escape',()=>{
- const ui=setup();ui.click('#tour');assert.ok(ui.doc.body.classList.contains('showcase-mode'));
- for(let i=0;i<10;i++)ui.tick();assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Scouting software/);
- for(let i=0;i<40;i++)ui.tick();assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Remy/);
- ui.click('[data-open="remy"]');assert.ok(!ui.doc.body.classList.contains('showcase-mode'));
- ui.click('#close-dialog');ui.click('#tour');ui.doc.dispatchEvent(new ui.window.KeyboardEvent('keydown',{key:'Escape'}));
- assert.equal(ui.doc.querySelector('#tour').getAttribute('aria-pressed'),'false');ui.close();
-});
+
 test('team checklist and autonomous destinations respond to interaction',()=>{
  const ui=setup();ui.click('[data-open="mission"]');
  ui.doc.querySelectorAll('.checklist input').forEach(input=>input.click());
@@ -73,18 +66,14 @@ test('carousel wraps in both directions and keeps outgoing slides inaccessible',
  assert.equal(ui.doc.querySelectorAll('.outgoing').length,1);
  ui.close();
 });
-test('carousel keeps selected dot focus and pauses automatic advancement while exploring slide controls',()=>{
+test('manual navigation keeps selected project focus and never starts a timer',()=>{
  const ui=setup();
  const dot=ui.doc.querySelector('[data-slide="2"]');dot.focus();dot.click();
  assert.equal(ui.doc.activeElement,dot);
  assert.equal(dot.getAttribute('aria-pressed'),'true');
- ui.click('#tour');
- ui.doc.querySelector('#feature-copy button').focus();
- for(let i=0;i<20;i++)ui.tick();
+ for(let i=0;i<30;i++)ui.tick();
  assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/La Petit Fromage/);
- ui.doc.querySelector('#tour').focus();
- for(let i=0;i<10;i++)ui.tick();
- assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Mission Control/);
+ assert.equal(ui.doc.querySelector('#tour'),null);
  ui.close();
 });
 
@@ -120,20 +109,7 @@ test('sequence undo allows correction and activity state survives explanation ch
  assert.doesNotMatch(ui.doc.querySelector('#sequence-slots').textContent,/Collect/);ui.close();
 });
 
-test('presentation can pause and resume without leaving the monitor layout', () => {
- const ui=setup();assert.ok(ui.doc.querySelector('#pause-tour').hidden);
- ui.click('#tour');ui.click('#pause-tour');
- for(let i=0;i<30;i++)ui.tick();
- assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Remy/);
- assert.ok(ui.doc.body.classList.contains('showcase-mode'));
- assert.match(ui.doc.querySelector('#tour-status').textContent,/Paused/);
- ui.click('[data-direction="1"]');
- for(let i=0;i<20;i++)ui.tick();
- assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Scouting/);
- ui.click('#pause-tour');for(let i=0;i<10;i++)ui.tick();
- assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/La Petit Fromage/);
- ui.click('#tour');assert.ok(ui.doc.querySelector('#pause-tour').hidden);ui.close();
-});
+
 
 test('reduced-motion navigation changes the project without a duplicate animated slide', () => {
  const ui=setup({reducedMotion:true});ui.click('[data-direction="1"]');
@@ -149,8 +125,41 @@ test('completing a keyboard sequence moves focus to the enabled undo control', (
  assert.equal(ui.doc.activeElement,ui.doc.querySelector('#undo-sequence'));ui.close();
 });
 
-test('leaving native fullscreen stops presentation even when the browser consumes Escape', () => {
- const ui=setup();ui.click('#tour');ui.doc.dispatchEvent(new ui.window.Event('fullscreenchange'));
- assert.ok(!ui.doc.body.classList.contains('showcase-mode'));
- assert.equal(ui.doc.querySelector('#tour').getAttribute('aria-pressed'),'false');ui.close();
+
+
+test('horizontal trackpad gestures advance once while vertical scrolling stays native',async()=>{
+ const ui=setup();const viewport=ui.doc.querySelector('.carousel-viewport');
+ const wheel=(x,y)=>{const e=new ui.window.WheelEvent('wheel',{deltaX:x,deltaY:y,cancelable:true});viewport.dispatchEvent(e);return e;};
+ assert.equal(wheel(4,100).defaultPrevented,false);
+ assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Remy/);
+ assert.equal(wheel(70,2).defaultPrevented,true);
+ assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Scouting/);
+ wheel(100,1);wheel(80,0);
+ assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Scouting/);
+ await new Promise(resolve=>setTimeout(resolve,220));
+ wheel(-70,0);assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Remy/);
+ ui.close();
+});
+test('touch swipes navigate but vertical gestures and canceled touches do not',()=>{
+ const ui=setup();const viewport=ui.doc.querySelector('.carousel-viewport');
+ const touch=(type,x,y)=>{const e=new ui.window.Event(type);e.changedTouches=[{clientX:x,clientY:y}];viewport.dispatchEvent(e);};
+ touch('touchstart',200,100);touch('touchend',100,110);
+ assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Scouting/);
+ touch('touchstart',100,100);touch('touchend',200,110);
+ assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Remy/);
+ touch('touchstart',100,100);touch('touchend',120,250);
+ assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Remy/);
+ touch('touchstart',200,100);touch('touchcancel',100,100);touch('touchend',100,100);
+ assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Remy/);ui.close();
+});
+test('every directory preview opens its project and scouting shows a screenshot',()=>{
+ const ui=setup();
+ for(const button of ui.doc.querySelectorAll('.project-preview')) {
+  assert.ok(button.querySelector('img').getAttribute('src'));
+  button.click();assert.ok(ui.doc.querySelector('dialog').open);
+  assert.ok(button.getAttribute('aria-label').includes(ui.doc.querySelector('#dialog-title').textContent));
+  ui.click('#close-dialog');
+ }
+ ui.click('[data-slide="1"]');assert.match(ui.doc.querySelector('#feature-visual img').src,/scouting-preview/);
+ ui.close();
 });

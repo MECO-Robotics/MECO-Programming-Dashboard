@@ -1,6 +1,6 @@
 # MECO Programming Dashboard
 
-This outreach exhibit for FRC Team 8324 MECO Robotics lets visitors explore our GitHub projects, try small interactive activities, or run a rotating showcase on a monitor. It is built with vanilla JavaScript, CSS, and Vite. No backend, account, API key, or live robot connection is required.
+This outreach exhibit for FRC Team 8324 MECO Robotics lets visitors explore our GitHub projects, try small interactive activities, and browse a manual project carousel on a monitor. It is built with vanilla JavaScript, CSS, and Vite. No backend, account, API key, or live robot connection is required.
 
 ## Open the dashboard
 
@@ -8,11 +8,11 @@ Visit **[MECO Programming Dashboard](https://meco-robotics.github.io/MECO-Progra
 
 ## At an outreach event
 
-- **Explore:** select a project name or “Details and activity” in the project directory. Each project has a plain-language “Overview” section and an “Engineering” section with design decisions, limitations, and links to supporting documentation.
+- **Explore:** select a project preview image, project name, or “Details and activity” in the project directory. Each project has a plain-language “Overview” section and an “Engineering” section with design decisions, limitations, and links to supporting documentation.
 - **Try it:** expand “Try an activity” in a project, then sequence a scoring cycle, count practice scores, complete a readiness checklist, or select an illustrated autonomous route. Each activity resets when you reopen its project; nothing is uploaded or saved.
-- **Showcase:** select “Start slideshow” to switch to a larger monitor layout and slide through all five projects every 10 seconds in a revolving carousel. The last project slides forward into the first, and previous navigation wraps in reverse. Use the named project buttons, previous and next arrows, or a horizontal touch swipe to select a project. Reduced-motion preferences disable the sliding animation. “Pause” holds the current slide while keeping the monitor layout; “Resume” continues the countdown. You can still choose a project while paused. Selecting “Stop slideshow” or pressing Escape returns to the normal layout. Opening an activity stops the showcase. Rotation pauses while the browser tab is hidden or keyboard focus is inside the featured slide.
+- **Featured projects:** use the arrows floating on the panel, the named project buttons, a horizontal touch swipe, or a horizontal trackpad gesture. Navigation wraps between the first and last project. Vertical gestures continue scrolling the page. The carousel stays on your chosen project; there is no automatic slideshow. Reduced-motion preferences disable the sliding animation.
 - **Full screen:** select “Full screen.” Browser support and permissions may vary; the browser’s own full-screen command also works.
-- **Keyboard:** Tab navigates controls; Enter or Space activates buttons. Escape closes the project dialog and stops the showcase. The Left and Right arrow keys change the featured project when focus is outside a button, link, input, or dialog.
+- **Keyboard:** Tab navigates controls; Enter or Space activates buttons. Escape closes the project dialog. The Left and Right arrow keys change the featured project when focus is outside a button, link, input, or dialog.
 - The exhibit supports landscape, portrait, and small screens, keyboard focus indicators, native modal focus containment, and reduced-motion preferences.
 
 An internet connection is required to open the GitHub Pages site and external project websites. The exhibit activities run in the browser without sending data to a server.
@@ -29,13 +29,13 @@ The link labeled “East Orlando, Florida” and “Team website” opens the te
 | Mission Control | [meco-mission-control-web](https://github.com/MECO-Robotics/meco-mission-control-web) | meco-mission-control-mobile, meco-mission-control-platform |
 | AutoDrive | [AutoDrive](https://github.com/MECO-Robotics/AutoDrive) | — |
 
-Content and engineering evidence were checked against the public repository READMEs on October 23, 2026. Mission Control is explicitly labeled as a prototype. The mini activities and field paths are educational illustrations, not embedded production applications or live telemetry. The scouting diagram explains the data workflow, and the Mission Control panel lists its prototype modules. AutoDrive's actual training uses PPO defense and AD* route planning; the exhibit does not execute that engine.
+Content and engineering evidence were checked against the public repository READMEs on October 23, 2026. Mission Control is explicitly labeled as a prototype. The mini activities and field paths are educational illustrations, not embedded production applications or live telemetry. The scouting panel shows a QRScout screenshot, and the Mission Control panel lists its prototype modules. AutoDrive's actual training uses PPO defense and AD* route planning; the exhibit does not execute that engine.
 
 ## Editing the exhibit
 
 - `src/projects.js`: project titles, categories, repository links, `websites` button labels/URLs, explanations, engineering decisions, evidence links, and accent colors.
-- `src/main.js`: rendering, project visuals, demos, showcase timing, and controls.
-- `src/style.css`: responsive layouts, activities, and monitor mode.
+- `src/main.js`: rendering, project visuals, demos, manual carousel navigation, and controls.
+- `src/style.css`: responsive layouts and activities.
 - `src/identity.css`: MECO exhibit styling, typography, blue masthead, dark project directory, project details, and photographic presentation area.
 - `public/assets/`: bundled team logo and robot photos.
 
@@ -49,13 +49,16 @@ To publish an update, commit and push your changes to `main`. Check progress und
 
 Repository **Settings → Pages → Source** must be **GitHub Actions**. Vite's base path is `/MECO-Programming-Dashboard/`, matching the repository's Pages URL. If the repository name or hosting domain changes, update `vite.config.js` and the website link above.
 
-The test suite covers project filters, activities, showcase timing and wraparound, carousel accessibility, focus preservation, presentation pause/resume, optional activities, and engineering views. Visual layout and native browser interactions still require browser review.
+The test suite covers project filters, activities, carousel wraparound, touch swipes, horizontal trackpad gestures, preview links, accessibility, focus preservation, optional activities, and engineering views. Visual layout and native browser interactions still require browser review.
 
 ## Branding and asset credits
 
-- Official colors from MECO Mission Control: blue `#16478e`, red `#ea1c2d`; the exhibit uses a team-blue masthead, a consistent dark navy background across the project directory, project details, activities, and presentation area, with light text, pale blue links, and red index numbers.
+- Official colors from MECO Mission Control: blue `#16478e`, red `#ea1c2d`; the exhibit uses a team-blue masthead, a consistent dark navy background across the project directory, project details, activities, and presentation area, with light text, pale blue links, and red navigation accents.
 - `public/assets/meco-logo.svg`: MECO's white logo, sourced from the existing Mission Control web repository's `public/meco-main-logo-white.svg`.
 - `public/assets/remy.jpg`: Remy photograph from [MECO's 2026 REBUILT page](https://www.mecorobotics.org/frc/2026-rebuilt). Team branding and photography remain the property of their respective owners.
+- `public/assets/scouting-preview.png`: QRScout screenshot from the team’s [QRScout_MECO repository](https://github.com/MECO-Robotics/QRScout_MECO/blob/main/docs/screenshots/default-config-dcmp-v1-fullscreen.png), showing example match data and upstream Red Hawk Robotics branding.
+- `public/assets/mission-preview.png`: prototype task screenshot from [Mission Control](https://github.com/MECO-Robotics/meco-mission-control-web/blob/main/docs/ui-audit/task-desktop.png).
+- `public/assets/autodrive-preview.svg`: an exhibit route illustration, not a screenshot of AutoDrive or live telemetry.
 - Team background: [MECO Robotics](https://www.mecorobotics.org/).
 
 The photo of La Petit Fromage uses `public/assets/16th-note-4k.png` (3840 × 3280 pixels). The original 192 × 164 screenshot remains unchanged at `public/assets/16th-note-original.png`. The display asset was conservatively restored with built-in imagegen, then resized to a 3840-pixel long edge. It remains soft: an upscale cannot recover missing source detail. CSS fades its edges into the navy background and applies a small contrast adjustment. The display width remains capped at 384px to avoid excessive enlargement. There are no music-note graphics.

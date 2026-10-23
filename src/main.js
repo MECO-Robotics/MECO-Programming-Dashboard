@@ -1,17 +1,16 @@
 import './style.css';
 import './identity.css';
-import { projects, github, nextProject, sequenceFeedback } from './projects.js';
+import { projects, github, sequenceFeedback } from './projects.js';
 const asset = (name) => `${import.meta.env.BASE_URL}assets/${name}`;
 const external = (url, text, cls = '') => `<a class="${cls}" href="${url}" target="_blank" rel="noopener noreferrer">${text}<span aria-hidden="true">↗</span></a>`;
 const websiteLinks = (project, cls = 'button outline') => (project.websites || []).map(site => external(site.url, site.label, cls)).join('');
-const SHOWCASE_SECONDS = 10;
-let selected = 0, category = 'All projects', technical = false, touring = false, paused = false, timer, remaining = SHOWCASE_SECONDS, sequence = [], scores = 0;
+let selected = 0, category = 'All projects', technical = false, sequence = [], scores = 0;
 const app = document.querySelector('#app');
 app.innerHTML = `
 <a class="skip-link" href="#projects">Skip to projects</a>
 <header><a class="brand" href="#" aria-label="MECO Robotics home"><img src="${asset('meco-logo.svg')}" alt="MECO Robotics"><span class="brand-divider"></span><span class="brand-caption">FRC TEAM <strong>8324</strong></span></a><nav aria-label="Main navigation"><a class="nav-active" href="#projects">Our projects</a><button id="fullscreen" class="button subtle">⛶ <span>Full screen</span></button></nav></header>
 <main><section class="intro"><div><p class="eyebrow">MECO Robotics / Software</p><h1>Programming<br>projects</h1><p class="intro-copy">We’re a FIRST Robotics Competition team from East Orlando. Explore a project to see what it does, how it works, and the code behind it.</p></div><a class="intro-aside team-website-link" href="https://www.mecorobotics.org/" target="_blank" rel="noopener noreferrer">East Orlando, Florida<span>Team website ↗</span></a></section>
-<section class="featured" aria-label="Project carousel" aria-roledescription="carousel"><div class="carousel-viewport"><div class="feature-slide" role="group" aria-roledescription="slide"><div class="feature-copy" id="feature-copy"></div><div class="feature-visual" id="feature-visual"></div></div></div><div class="feature-bottom"><div class="carousel-navigation"><button class="carousel-arrow" data-direction="-1" aria-label="Previous project">←</button><div id="slide-dots" class="slide-dots" aria-label="Choose featured project"></div><button class="carousel-arrow" data-direction="1" aria-label="Next project">→</button></div><div class="tour-tools"><span id="tour-status" class="mono">10-second slides</span><button id="pause-tour" class="button subtle" hidden>Pause</button><button id="tour" class="button subtle">Start slideshow</button></div></div></section>
+<section class="featured" aria-label="Project carousel" aria-roledescription="carousel"><div class="feature-panel"><div class="carousel-viewport"><div class="feature-slide" role="group" aria-roledescription="slide"><div class="feature-copy" id="feature-copy"></div><div class="feature-visual" id="feature-visual"></div></div></div><button class="carousel-arrow previous" data-direction="-1" aria-label="Previous project">←</button><button class="carousel-arrow next" data-direction="1" aria-label="Next project">→</button></div><div class="feature-bottom"><div id="slide-dots" class="slide-dots" aria-label="Choose featured project"></div><span class="swipe-hint">Swipe to explore</span></div></section>
 <section id="projects" class="projects"><div class="section-heading"><div><h2>Project directory</h2></div><p>Maintained by FRC Team 8324</p></div><div class="project-toolbar"><div class="filters" role="group" aria-label="Filter projects">${['All projects','Robots','Team tools','Autonomy'].map((c,i)=>`<button class="filter ${i===0?'active':''}" data-filter="${c}" aria-pressed="${i===0}">${c}</button>`).join('')}</div><span class="mono" id="project-count">5 projects</span></div><div class="project-grid" id="project-grid"></div></section>
 </main>
 <footer><span>MECO Robotics · Team 8324</span><div>${external(github, 'GitHub')}${external('https://www.mecorobotics.org/', 'mecorobotics.org')}</div></footer>
@@ -21,7 +20,7 @@ function fieldMarkup(interactive=false) { return `<div class="field ${interactiv
 function visual(p) {
  if(p.id==='remy') return `<img class="robot-photo" src="${asset('remy.jpg')}" alt="Remy, MECO’s blue-bumpered 8324 competition robot, lit in blue and red"><div class="photo-caption"> REMY <span>2026 / REBUILT</span></div>`;
  if(p.id==='auto') return `<div class="visual-demo"><p class="mono">Route planning</p>${fieldMarkup()}<span class="visual-note">Example route around an obstacle.</span></div>`;
- if(p.id==='scouting') return `<div class="software-diagram"><p class="diagram-heading">How scouting data moves</p><ol class="workflow"><li><span>01</span><div><h3>QRScout</h3><p>Record observations during a match.</p></div></li><li><span>02</span><div><h3>Transfer</h3><p>Move scouting records with QR codes.</p></div></li><li><span>03</span><div><h3>FieldScout</h3><p>Compare teams, review charts, and plan matches.</p></div></li></ol><p class="diagram-caption">Scouting workflow</p></div>`;
+ if(p.id==='scouting') return `<figure class="software-preview"><img src="${asset('scouting-preview.png')}" alt="QRScout match form with autonomous, teleop, and endgame scouting fields"><figcaption><strong>QRScout</strong><span>Match observations are transferred to FieldScout for analysis.</span></figcaption></figure>`;
  if(p.id==='mission') return `<div class="software-diagram"><p class="diagram-heading">Mission Control</p><dl class="module-list"><div><dt>Planning</dt><dd>Build tasks and manufacturing coordination</dd></div><div><dt>Inventory</dt><dd>Parts and equipment records</dd></div><div><dt>Readiness</dt><dd>Robot checks and preparation</dd></div><div><dt>Team</dt><dd>Roster and team information</dd></div></dl><p class="diagram-caption">Prototype · Web, mobile, and API repositories</p></div>`;
  return `<div class="note-photo-stage"><img class="note-photo" src="${asset('16th-note-4k.png')}" width="3840" height="3280" alt="La Petit Fromage, the small tank-drive robot with a red 9924 bumper, in the team workshop"></div><div class="photo-caption">La Petit Fromage <span>TANK-DRIVE ROBOT</span></div>`;
 }
@@ -47,7 +46,6 @@ function changeSlide(index, direction = 1) {
   viewport.style.setProperty('--slide-direction', direction);
  }
  selected = next;
- remaining = SHOWCASE_SECONDS;
  renderFeature();
  if(!reduceMotion) {
   void current.offsetWidth;
@@ -57,7 +55,6 @@ function changeSlide(index, direction = 1) {
    current.classList.remove('slide-enter');
   }, 650);
  }
- if(touring)updateTourStatus();
 }
 function renderFeature() {
  const p=projects[selected];
@@ -69,14 +66,22 @@ function renderFeature() {
  dots.querySelectorAll('button').forEach((button,i)=>{button.classList.toggle('active',selected===i);button.setAttribute('aria-pressed',String(selected===i));});
  document.querySelector('.feature-slide:not(.outgoing)').setAttribute('aria-label', `${selected+1} of ${projects.length}: ${p.name}`);
 }
+const previews = {
+ remy: ['remy.jpg', 'Remy competition robot'],
+ scouting: ['scouting-preview.png', 'QRScout match recording screen'],
+ note: ['16th-note-4k.png', 'La Petit Fromage development robot'],
+ mission: ['mission-preview.png', 'Mission Control task details'],
+ auto: ['autodrive-preview.svg', 'Illustrated robot route around a field obstacle'],
+};
+function preview(p) {
+ const [file, description] = previews[p.id];
+ return `<button class="project-preview preview-${p.id}" data-open="${p.id}" aria-label="Explore ${p.name}"><img src="${asset(file)}" alt="${description}" loading="lazy" width="320" height="200">${p.id==='auto'?'<span>Route illustration</span>':''}</button>`;
+}
 function renderCards() {
  const visible=projects.filter(p=>category==='All projects'||p.category===category);
  document.querySelector('#project-count').textContent=`${visible.length} project${visible.length===1?'':'s'}`;
- document.querySelector('#project-grid').innerHTML=visible.map(p=>`<article class="project-card"><div class="project-index" aria-hidden="true">${String(projects.indexOf(p)+1).padStart(2,'0')}</div><div class="project-summary"><span class="card-category">${p.category}${p.id==='mission'?' · Prototype':''}</span><h3><button class="card-explore" data-open="${p.id}">${p.name}</button></h3><p>${p.hook}</p><span class="project-language">${p.language}</span></div><div class="project-links">${external(github+p.repo,'Source code','repository-link')}${websiteLinks(p,'directory-link')}<button class="directory-details" data-open="${p.id}">Details and activity <span aria-hidden="true">→</span></button></div></article>`).join('');
+ document.querySelector('#project-grid').innerHTML=visible.map(p=>`<article class="project-card">${preview(p)}<div class="project-summary"><span class="card-category">${p.category}${p.id==='mission'?' · Prototype':''}</span><h3><button class="card-explore" data-open="${p.id}">${p.name}</button></h3><p>${p.hook}</p><span class="project-language">${p.language}</span></div><div class="project-links">${external(github+p.repo,'Source code','repository-link')}${websiteLinks(p,'directory-link')}<button class="directory-details" data-open="${p.id}">Details and activity <span aria-hidden="true">→</span></button></div></article>`).join('');
 }
-function stopTour() { document.body.classList.remove('showcase-mode'); touring=false; paused=false; document.querySelector('#pause-tour').hidden=true; clearInterval(timer); document.querySelector('#tour').textContent='Start slideshow'; document.querySelector('#tour').setAttribute('aria-pressed','false'); document.querySelector('#tour-status').textContent='10-second slides'; }
-function startTour() { document.body.classList.add('showcase-mode'); window.scrollTo(0,0); touring=true; paused=false; document.querySelector('#pause-tour').hidden=false; document.querySelector('#pause-tour').textContent='Pause'; remaining=SHOWCASE_SECONDS; document.querySelector('#tour').textContent='Stop slideshow'; document.querySelector('#tour').setAttribute('aria-pressed','true'); updateTourStatus(); timer=setInterval(()=>{if(paused || document.hidden || document.querySelector('.carousel-viewport').contains(document.activeElement))return;remaining--;if(remaining<=0){changeSlide(nextProject(selected),1);}updateTourStatus();},1000); }
-function updateTourStatus(){document.querySelector('#tour-status').textContent=`${selected+1} / ${projects.length} · ${paused?'Paused':`Next in ${remaining}s`}`;}
 function demo(p) {
  if(p.steps) return `<div class="sequence"><div class="sequence-slots" id="sequence-slots"><span>1. ?</span><span>2. ?</span><span>3. ?</span></div><div class="demo-buttons">${['Shoot','Collect','Aim'].map(s=>`<button class="button outline" data-step="${s}">${s}</button>`).join('')}<button class="button subtle" id="undo-sequence" disabled>Undo</button><button class="button subtle" id="reset-sequence">Reset</button></div><p id="demo-feedback" role="status">Select the actions in the order the robot should perform them.</p></div>`;
  if(p.id==='scouting') return `<div class="scouting-demo"><span class="mono">Practice match · Team 8324</span><p>Imagine watching a match. Each time the robot scores a game piece, add one to your record.</p><div class="counter"><button class="icon-button" id="minus-score" aria-label="Remove a scored game piece" disabled>−</button><output id="score" aria-live="polite">0</output><button class="icon-button" id="plus-score" aria-label="Add a scored game piece">+</button></div><p>Game pieces scored</p><p>Use + to record one and − to correct a mistake. Scouts combine records like this to compare teams across matches.</p><button class="button subtle" id="reset-score">Reset practice match</button></div>`;
@@ -85,7 +90,7 @@ function demo(p) {
 }
 let activeProject;
 function openProject(id) {
- stopTour(); activeProject=projects.find(p=>p.id===id); technical=false; sequence=[];scores=0;renderDialog();dialog.showModal();
+ activeProject=projects.find(p=>p.id===id); technical=false; sequence=[];scores=0;renderDialog();dialog.showModal();
 }
 function explanationMarkup(p) {
  if(!technical) return `<p>${p.simple}</p><p class="project-purpose">${p.purpose}</p>`;
@@ -93,7 +98,6 @@ function explanationMarkup(p) {
 }
 function renderDialog(){const p=activeProject;document.querySelector('#dialog-body').innerHTML=`<p class="eyebrow">${p.label}</p><h2 id="dialog-title">${p.name}</h2><div class="reading-tabs" role="group" aria-label="Explanation level"><button data-level="simple" aria-pressed="${!technical}" class="${!technical?'active':''}">Overview</button><button data-level="technical" aria-pressed="${technical}" class="${technical?'active':''}">Engineering</button></div><section class="explanation" aria-label="Project explanation">${explanationMarkup(p)}</section><details class="activity"><summary>Try an activity <span>About 30 seconds</span></summary><section class="demo-panel"><h3>${p.challenge}</h3>${demo(p)}<p class="dialog-footnote">A browser example, not a connection to the robot or team software.</p></section></details><div class="dialog-links">${external(github+p.repo,'Source code on GitHub','button primary')}${websiteLinks(p,'text-link')}</div>${p.id==='auto'?'<p class="network-note">The training monitor opens only on the team network. Select Engineering for public documentation that is available to everyone.</p>':''}${p.related.length?`<details class="related-repos"><summary>Related repositories (${p.related.length})</summary><div>${p.related.map(r=>external(github+r,r,'related-link')).join('')}</div></details>`:''}`;}
 app.addEventListener('click', async e=>{
- if(e.target.closest('a[href="#projects"], a.brand'))stopTour();
  const open=e.target.closest('[data-open]');if(open){openProject(open.dataset.open);return;}
  const slide=e.target.closest('[data-slide]');if(slide){const index=Number(slide.dataset.slide);changeSlide(index,index<selected?-1:1);return;}
  const direction=e.target.closest('[data-direction]');if(direction){const step=Number(direction.dataset.direction);changeSlide(selected+step,step);return;}
@@ -103,8 +107,6 @@ app.addEventListener('click', async e=>{
  const route=e.target.closest('[data-route]');if(route){const f=dialog.querySelector('.field');f.classList.remove('collecting','scoring');void f.offsetWidth; if(route.dataset.route!=='reset')f.classList.add(route.dataset.route==='collect'?'collecting':'scoring');document.querySelector('#route-status').textContent=route.dataset.route==='reset'?'Choose a new destination.':route.dataset.route==='collect'?'The robot is following the lower route to collect game pieces. This example uses a fixed route; AutoDrive calculates routes from the field state.':'The robot is going around the obstacle to reach the goal. This example shows the route-following idea, not the training engine.';return;}
  const button=e.target.closest('button');if(!button)return;
  switch(button.id){
- case 'tour':touring?stopTour():startTour();break;
- case 'pause-tour':paused=!paused;button.textContent=paused?'Resume':'Pause';updateTourStatus();break;
  case 'close-dialog':dialog.close();break;
  case 'reset-sequence':sequence=[];renderSequence();break;
  case 'undo-sequence':sequence.pop();renderSequence();break;
@@ -118,8 +120,8 @@ function renderSequence(){document.querySelector('#sequence-slots').innerHTML=[0
 function renderScore(){document.querySelector('#score').value=scores;document.querySelector('#minus-score').disabled=scores===0;document.querySelector('#plus-score').disabled=scores===999;}
 dialog.addEventListener('change',()=>{const checked=dialog.querySelectorAll('input:checked').length;const status=document.querySelector('#ready-status');if(status)status.textContent=checked===3?'All 3 example checks are complete. A real checklist helps the team spot unfinished work before a match.':`${checked} of 3 example checks complete.`;});
 dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
-document.addEventListener('fullscreenchange',()=>{document.querySelector('#fullscreen span').textContent=document.fullscreenElement?'Exit full screen':'Full screen';if(!document.fullscreenElement&&touring)stopTour();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')stopTour();if(dialog.open||/INPUT|TEXTAREA|BUTTON|A/.test(document.activeElement.tagName))return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const direction=e.key==='ArrowRight'?1:-1;changeSlide(selected+direction,direction);}});
+document.addEventListener('fullscreenchange',()=>{document.querySelector('#fullscreen span').textContent=document.fullscreenElement?'Exit full screen':'Full screen';});
+document.addEventListener('keydown',e=>{if(dialog.open||/INPUT|TEXTAREA|BUTTON|A/.test(document.activeElement.tagName))return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const direction=e.key==='ArrowRight'?1:-1;changeSlide(selected+direction,direction);}});
 let touchStart;
 const carouselViewport = document.querySelector('.carousel-viewport');
 carouselViewport.addEventListener('touchstart', e=>{const touch=e.changedTouches[0];touchStart={x:touch.clientX,y:touch.clientY};},{passive:true});
@@ -130,4 +132,20 @@ carouselViewport.addEventListener('touchend', e=>{
  if(Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5){const direction=dx<0?1:-1;changeSlide(selected+direction,direction);}
 },{passive:true});
 carouselViewport.addEventListener('touchcancel',()=>{touchStart=undefined;},{passive:true});
-renderFeature();renderCards();document.querySelector('#tour').setAttribute('aria-pressed','false');
+let wheelDistance = 0, wheelLocked = false, wheelReset;
+carouselViewport.addEventListener('wheel', e => {
+ if(Math.abs(e.deltaX) <= Math.abs(e.deltaY) || e.ctrlKey) return;
+ e.preventDefault();
+ clearTimeout(wheelReset);
+ wheelReset = setTimeout(() => { wheelDistance = 0; wheelLocked = false; }, 180);
+ if(wheelLocked) return;
+ const delta = e.deltaX * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? carouselViewport.clientWidth : 1);
+ if(Math.sign(delta) !== Math.sign(wheelDistance)) wheelDistance = 0;
+ wheelDistance += delta;
+ if(Math.abs(wheelDistance) >= 60) {
+  const direction = wheelDistance > 0 ? 1 : -1;
+  changeSlide(selected + direction, direction);
+  wheelLocked = true;
+ }
+}, { passive: false });
+renderFeature();renderCards();
