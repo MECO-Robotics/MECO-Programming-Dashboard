@@ -8,9 +8,9 @@ Visit **[MECO Programming Dashboard](https://meco-robotics.github.io/MECO-Progra
 
 ## At an outreach event
 
-- **Explore:** select a project name or “Details and activity” in the project directory. Each project has a plain-language “Overview” section and a “Technical details” section for visitors interested in the technology.
-- **Try it:** sequence a scoring cycle, count practice scores, complete a readiness checklist, or select an illustrated autonomous route. Each activity resets when you reopen its project; nothing is uploaded or saved.
-- **Showcase:** select “Start slideshow” to switch to a larger monitor layout and slide through all five projects every 10 seconds in a revolving carousel. The last project slides forward into the first, and previous navigation wraps in reverse. Use the dots, previous and next arrows, or a horizontal touch swipe to select a project. Reduced-motion preferences disable the sliding animation. Selecting “Stop slideshow” or pressing Escape returns to the normal layout. Opening an activity stops the showcase. Rotation pauses while the browser tab is hidden or keyboard focus is inside the featured slide.
+- **Explore:** select a project name or “Details and activity” in the project directory. Each project has a plain-language “Overview” section and an “Engineering” section with design decisions, limitations, and links to supporting documentation.
+- **Try it:** expand “Try an activity” in a project, then sequence a scoring cycle, count practice scores, complete a readiness checklist, or select an illustrated autonomous route. Each activity resets when you reopen its project; nothing is uploaded or saved.
+- **Showcase:** select “Start slideshow” to switch to a larger monitor layout and slide through all five projects every 10 seconds in a revolving carousel. The last project slides forward into the first, and previous navigation wraps in reverse. Use the named project buttons, previous and next arrows, or a horizontal touch swipe to select a project. Reduced-motion preferences disable the sliding animation. “Pause” holds the current slide while keeping the monitor layout; “Resume” continues the countdown. You can still choose a project while paused. Selecting “Stop slideshow” or pressing Escape returns to the normal layout. Opening an activity stops the showcase. Rotation pauses while the browser tab is hidden or keyboard focus is inside the featured slide.
 - **Full screen:** select “Full screen.” Browser support and permissions may vary; the browser’s own full-screen command also works.
 - **Keyboard:** Tab navigates controls; Enter or Space activates buttons. Escape closes the project dialog and stops the showcase. The Left and Right arrow keys change the featured project when focus is outside a button, link, input, or dialog.
 - The exhibit supports landscape, portrait, and small screens, keyboard focus indicators, native modal focus containment, and reduced-motion preferences.
@@ -29,11 +29,11 @@ The link labeled “East Orlando, Florida” and “Team website” opens the te
 | Mission Control | [meco-mission-control-web](https://github.com/MECO-Robotics/meco-mission-control-web) | meco-mission-control-mobile, meco-mission-control-platform |
 | AutoDrive | [AutoDrive](https://github.com/MECO-Robotics/AutoDrive) | — |
 
-Content was checked against the public repository READMEs on October 22, 2026. Mission Control is explicitly labeled as a prototype. The mini activities and field paths are educational illustrations, not embedded production applications or live telemetry. The scouting diagram explains the data workflow, and the Mission Control panel lists its prototype modules. AutoDrive's actual training uses PPO defense and AD* route planning; the exhibit does not execute that engine.
+Content and engineering evidence were checked against the public repository READMEs on October 23, 2026. Mission Control is explicitly labeled as a prototype. The mini activities and field paths are educational illustrations, not embedded production applications or live telemetry. The scouting diagram explains the data workflow, and the Mission Control panel lists its prototype modules. AutoDrive's actual training uses PPO defense and AD* route planning; the exhibit does not execute that engine.
 
 ## Editing the exhibit
 
-- `src/projects.js`: project titles, categories, repository links, `websites` button labels/URLs, explanations, and accent colors.
+- `src/projects.js`: project titles, categories, repository links, `websites` button labels/URLs, explanations, engineering decisions, evidence links, and accent colors.
 - `src/main.js`: rendering, project visuals, demos, showcase timing, and controls.
 - `src/style.css`: MECO theme, responsive layouts, and monitor mode.
 - `public/assets/`: bundled team logo and robot photos.
@@ -42,13 +42,13 @@ When adding a project, add its content to `projects.js` and provide an appropria
 
 ## Publishing through GitHub Pages
 
-Every push to `main` runs `.github/workflows/pages.yml`. GitHub Actions installs the locked dependencies with Node.js 24, runs the seven interaction tests, builds the website, and deploys `dist/` to GitHub Pages. A failing test or build prevents deployment.
+Every push to `main` runs `.github/workflows/pages.yml`. GitHub Actions installs the locked dependencies with Node.js 24, runs the interaction tests, builds the website, and deploys `dist/` to GitHub Pages. A failing test or build prevents deployment.
 
 To publish an update, commit and push your changes to `main`. Check progress under the repository's **Actions** tab. To republish without a new commit, select **Deploy dashboard to GitHub Pages → Run workflow**.
 
 Repository **Settings → Pages → Source** must be **GitHub Actions**. Vite's base path is `/MECO-Programming-Dashboard/`, matching the repository's Pages URL. If the repository name or hosting domain changes, update `vite.config.js` and the website link above.
 
-The test suite covers project filters, activities, showcase timing and wraparound, carousel accessibility, and focus preservation. Visual layout and native browser interactions still require browser review.
+The test suite covers project filters, activities, showcase timing and wraparound, carousel accessibility, focus preservation, presentation pause/resume, optional activities, and engineering views. Visual layout and native browser interactions still require browser review.
 
 ## Branding and asset credits
 
@@ -62,3 +62,7 @@ The photo of La Petit Fromage uses `public/assets/16th-note-4k.png` (3840 × 328
 ### Image restoration prompt
 
 > Conservative restoration/upscale ONLY of this exact photograph. Output 3840x3280 pixels (same 192:164 aspect ratio, 4K long edge). Absolutely preserve original pixel composition, camera perspective, exact robot silhouette, tiny robot dimensions, all visible component positions, red bumper number 9924, gray floor, blue background bins, and original framing. Do not redesign, relight, replace background, add components, extrapolate plausible sharp mechanical details, or change shapes. A previous attempt invented a different robot and was rejected. This should look exactly like the attached screenshot but resampled with very gentle noise reduction and conservative sharpening. Keep naturally soft areas soft wherever detail cannot be recovered. No text additions. Preserve the source's appearance and robot identity over sharpness.
+
+## Presentation review
+
+[Review notes](docs/review-notes.md) record the judge and first-time-visitor walkthroughs, findings, fixes, and validation. The engineering view describes documented behavior; it does not claim award results, measured competition improvements, or completed hardware validation where the project documentation does not establish them.

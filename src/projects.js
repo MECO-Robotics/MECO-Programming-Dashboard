@@ -3,15 +3,15 @@ export const projects = [
   {
     "id": "remy",
     "title": "Remy",
-    "name": "Remy robot code",
+    "name": "Remy",
     "category": "Robots",
     "label": "2026 competition robot",
     "color": "#91b5e5",
     "repo": "2026-Rebuilt",
     "language": "Java",
-    "hook": "Swerve drive, intake, and shooter control for our 2026 robot.",
-    "simple": "Remy is our 2026 competition robot. Its code controls the wheels, collects game pieces, and coordinates aiming and shooting.",
-    "technical": "Command-based Java coordinates the swerve drivetrain, intake, and shooter. Subsystem IO separates real hardware from simulation and replay, with AdvantageKit telemetry to help understand robot behavior.",
+    "hook": "Code that drives our competition robot and coordinates collecting and shooting.",
+    "simple": "Remy is our 2026 competition robot. Drivers use a controller to move it. Software also runs the intake, which picks up the balls used in the game, and the shooter, which sends them toward the goal.",
+    "technical": "Commands coordinate the robot’s actions. Reusable Flywheel and PositionJoint subsystems handle motor speed and mechanism position. Separate input/output (IO) implementations support real hardware, simulation, and recorded-log replay.",
     "challenge": "Put the scoring actions in order.",
     "steps": [
       "Collect",
@@ -21,6 +21,10 @@ export const projects = [
     "related": [],
     "websites": [
       {
+        "label": "Robot documentation",
+        "url": "https://meco-robotics.github.io/2026-Rebuilt/"
+      },
+      {
         "label": "Robot website",
         "url": "https://www.mecorobotics.org/frc/2026-rebuilt"
       },
@@ -28,7 +32,30 @@ export const projects = [
         "label": "3D robot viewer",
         "url": "https://meco-robotics.github.io/robot-cad-embeds/"
       }
-    ]
+    ],
+    "purpose": "The driver asks for an action; the software coordinates the motors needed to carry it out.",
+    "engineering": [
+      [
+        "Reuse motor control",
+        "A Flywheel can control one motor or a group sharing one speed. Mechanisms needing different speeds use separate subsystems, coordinated by a command."
+      ],
+      [
+        "Check what the robot actually does",
+        "The intake system check records requests, measured movement, limits, and controller results separately. A voltage request alone is not evidence that a mechanism moved."
+      ]
+    ],
+    "evidence": [
+      [
+        "Subsystem design",
+        "https://github.com/MECO-Robotics/2026-Rebuilt#subsystems"
+      ],
+      [
+        "Intake diagnosis procedure",
+        "https://github.com/MECO-Robotics/2026-Rebuilt/blob/main/docs/source/system-check.rst"
+      ]
+    ],
+    "limitation": "Simulation supports development. Physical intake direction and hardware behavior still need verification on the robot.",
+    "shortName": "Remy"
   },
   {
     "id": "scouting",
@@ -39,9 +66,9 @@ export const projects = [
     "color": "#91b5e5",
     "repo": "FieldScout",
     "language": "Web, iPad, and desktop",
-    "hook": "Match data collection with QRScout and analysis in FieldScout.",
-    "simple": "Scouts record what happens during a match in QRScout. FieldScout organizes those observations into team summaries, charts, and rankings.",
-    "technical": "QRScout captures match observations and encodes them for transfer. FieldScout keeps raw entries in an offline-first desktop spreadsheet and calculates separate summaries, rankings, and charts. Its iPad Portal works over local Wi-Fi.",
+    "hook": "Record what robots do during matches, then compare the results.",
+    "simple": "Scouting means watching matches and recording what each robot does. QRScout collects those observations. FieldScout turns the records into summaries that help our team compare robots and plan matches.",
+    "technical": "FieldScout keeps raw scouting entries separate from calculated summaries. QRScout records can be scanned into it, and an iPad Portal can submit entries over local Wi-Fi without internet access.",
     "challenge": "Record scored game pieces.",
     "related": [
       "QRScout_MECO",
@@ -61,7 +88,30 @@ export const projects = [
         "label": "Download FieldScout",
         "url": "https://github.com/MECO-Robotics/FieldScout/releases/latest"
       }
-    ]
+    ],
+    "purpose": "A written record lets the team compare many matches instead of relying on memory.",
+    "engineering": [
+      [
+        "Keep the original observations",
+        "Charts and rankings are calculated as separate views. Duplicate scans are ignored, while conflicting entries for the same team and match require review."
+      ],
+      [
+        "Work without venue internet",
+        "Scouting records stay on the computer. The iPad Portal uses the local network and queues entries on the iPad if the computer disconnects."
+      ]
+    ],
+    "evidence": [
+      [
+        "Data collection and offline behavior",
+        "https://github.com/MECO-Robotics/FieldScout#scout-from-an-ipad-without-installing-an-app"
+      ],
+      [
+        "QRScout form and transfer format",
+        "https://github.com/MECO-Robotics/QRScout_MECO"
+      ]
+    ],
+    "limitation": "The counter here is a teaching example. It does not send a record to QRScout or FieldScout.",
+    "shortName": "Scouting"
   },
   {
     "id": "note",
@@ -72,16 +122,39 @@ export const projects = [
     "color": "#91b5e5",
     "repo": "16th_Note",
     "language": "Java",
-    "hook": "Driving, intake, and shooter code for our small tank-drive robot.",
-    "simple": "La Petit Fromage steers by changing the speed of its left and right wheels. Its code also controls the intake and shooter.",
-    "technical": "The tank drivetrain uses the rebuilt command/subsystem/IO structure, AdvantageKit logs, SPARK MAX control, and PathPlanner autonomous routines.",
+    "hook": "Drive and mechanism control for our smaller development robot.",
+    "simple": "La Petit Fromage is our smaller development robot. It turns by changing the speed of its left and right wheels. Its software also picks up game pieces and controls the shooter.",
+    "technical": "The tank drivetrain uses the rebuilt command/subsystem/IO structure, AdvantageKit logs, SPARK MAX motor controllers, and PathPlanner routes. Shooter routines check measured wheel speed before feeding a game piece.",
     "challenge": "Put the scoring actions in order.",
     "steps": [
       "Collect",
       "Aim",
       "Shoot"
     ],
-    "related": []
+    "related": [],
+    "purpose": "This robot gives the team another platform for developing and checking driving and mechanism code.",
+    "engineering": [
+      [
+        "Wait for the mechanism to be ready",
+        "Autonomous shooting waits for the measured shooter speed to reach its tolerance. If that takes too long, the routine reports an error and does not feed the game piece."
+      ],
+      [
+        "Keep evidence from a run",
+        "Match information, controls, and mechanism measurements are saved in logs. Logging uses writable USB storage when available, with onboard storage as a startup fallback."
+      ]
+    ],
+    "evidence": [
+      [
+        "Robot behavior and tuning notes",
+        "https://github.com/MECO-Robotics/16th_Note#readme"
+      ],
+      [
+        "Recorded match data",
+        "https://github.com/MECO-Robotics/16th_Note#match-logs"
+      ]
+    ],
+    "limitation": "The repository is still named 16th_Note. Its documentation identifies preliminary settings that require hardware tuning.",
+    "shortName": "La Petit Fromage"
   },
   {
     "id": "mission",
@@ -92,9 +165,9 @@ export const projects = [
     "color": "#91b5e5",
     "repo": "meco-mission-control-web",
     "language": "TypeScript · React",
-    "hook": "Planning, inventory, and build coordination in one team workspace.",
-    "simple": "Mission Control brings tasks, parts, and team information into one workspace. It includes tools for planning builds and checking robot readiness.",
-    "technical": "The web prototype supports planning, readiness review, inventory, manufacturing coordination, and roster workflows. Separate web, mobile, and API repositories make up the Mission Control system. It is not yet serving real operational data.",
+    "hook": "A prototype workspace for tasks, parts, and robot preparation.",
+    "simple": "Building a robot takes more than writing code. Mission Control is a prototype for keeping track of jobs, parts, and team information so people can see what needs attention.",
+    "technical": "The React web client, mobile client, and shared API live in separate repositories. The web workspace covers planning, resources, and team information. Demo and tutorial modes use separate example data.",
     "challenge": "Complete a sample pre-match checklist.",
     "related": [
       "meco-mission-control-mobile",
@@ -105,7 +178,30 @@ export const projects = [
         "label": "Open Mission Control",
         "url": "https://meco-pm.duckdns.org/"
       }
-    ]
+    ],
+    "purpose": "The workspace connects the work to be done with the parts and people involved.",
+    "engineering": [
+      [
+        "Separate practice from team data",
+        "Unsigned demos keep edits in the browser tab. Tutorials use an in-memory copy and discard changes when the tutorial ends. These modes do not upload edits to a real workspace."
+      ],
+      [
+        "Share a service across clients",
+        "Web and mobile clients use the platform API. The web interface supports detailed planning and review; the mobile interface is intended for quick shop updates."
+      ]
+    ],
+    "evidence": [
+      [
+        "Demo and tutorial isolation",
+        "https://github.com/MECO-Robotics/meco-mission-control-web#local-demo-and-tutorials"
+      ],
+      [
+        "System architecture",
+        "https://github.com/MECO-Robotics/meco-mission-control-web#system-overview"
+      ]
+    ],
+    "limitation": "This is a prototype, not evidence of a production rollout or measured team outcomes.",
+    "shortName": "Mission Control"
   },
   {
     "id": "auto",
@@ -116,9 +212,9 @@ export const projects = [
     "color": "#91b5e5",
     "repo": "AutoDrive",
     "language": "Python",
-    "hook": "Simulated matches for testing path planning and defensive strategies.",
-    "simple": "AutoDrive runs simulated robot matches to test movement and strategy. It combines planned routes with machine learning experiments for defense.",
-    "technical": "GPU-vectorized training uses PPO for defense against deterministic offense strategies. AD* plans routes, and a robot controller follows them. Simulated physics and scoring support experiments; this exhibit is a simplified route illustration, not the training engine.",
+    "hook": "Test robot routes and defensive strategies in simulated matches.",
+    "simple": "AutoDrive runs robot matches inside a computer. It tests where a robot should move and how it could defend against another robot, before trying those ideas on a physical field.",
+    "technical": "A learning method called PPO trains defensive strategies against scripted opponents. AD* plans routes, and a robot controller follows them. Evaluation compares strategies on matched, seeded scenarios.",
     "challenge": "Choose a destination.",
     "related": [],
     "websites": [
@@ -126,7 +222,30 @@ export const projects = [
         "label": "Training monitor (team network)",
         "url": "http://100.121.248.52:8765/"
       }
-    ]
+    ],
+    "purpose": "Simulation provides a repeatable place to compare strategies under the same starting conditions.",
+    "engineering": [
+      [
+        "Separate strategy from movement",
+        "The strategy selects an objective. A route planner finds a path, and a controller handles following it. These are separate responsibilities."
+      ],
+      [
+        "Compare repeatable trials",
+        "Evaluation records include scored game pieces, cycle time, defensive outcomes, and simulated score differences against scripted baselines."
+      ]
+    ],
+    "evidence": [
+      [
+        "Training and evaluation",
+        "https://github.com/MECO-Robotics/AutoDrive#train-on-the-wx-9100-gpus"
+      ],
+      [
+        "Physics assumptions and limits",
+        "https://github.com/MECO-Robotics/AutoDrive#swerve-physics-assumptions"
+      ]
+    ],
+    "limitation": "The simulator has simplified physics and game rules. Results are not proof of performance on a real robot. The training monitor requires access to the team network.",
+    "shortName": "AutoDrive"
   }
 ];
 export function nextProject(index, count = projects.length) { return (index + 1) % count; }

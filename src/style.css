@@ -128,7 +128,7 @@ footer a:hover { color: white; }
 .collecting .route path { d: path('M 70 210 L 185 210 L 350 210'); }
 .scoring .route path { d: path('M 70 210 L 185 210 L 185 85 L 370 85'); }
 @keyframes collect { from { left: 10%; top: 73%; } to { left: 65%; top: 73%; } }
-@keyframes score { 0% { left: 10%; top: 73%; } 35% { left: 30%; top: 73%; } 65% { left: 30%; top: 25%; } 100% { left: 74%; top: 25%; } }
+@keyframes score { 0% { left: 10%; top: 73%; } 35% { left: 30%; top: 73%; } 65% { left: 30%; top: 17%; } 100% { left: 85%; top: 17%; } }
 .note-photo-stage { height: 100%; min-height: 360px; display: flex; align-items: center; justify-content: center; padding: 28px 30px 62px; background: #0b111c; }
 .note-photo { display: block; width: min(100%, 384px); height: auto; object-fit: contain; image-rendering: auto; filter: contrast(1.035); mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent), linear-gradient(to bottom, transparent, #000 9%, #000 86%, transparent); mask-composite: intersect; -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent), linear-gradient(to bottom, transparent, #000 9%, #000 86%, transparent); -webkit-mask-composite: source-in; }
 dialog { background: #121a27; color: #e9edf4; border: 1px solid #526078; border-radius: 6px; width: min(780px, calc(100% - 30px)); max-height: 90dvh; padding: 26px 32px; box-shadow: 0 24px 80px #0008; }
@@ -260,3 +260,88 @@ body:has(dialog[open]) { overflow: hidden; }
   .showcase-mode .feature-visual::after { background: linear-gradient(0deg, #121a27, transparent 30%); }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; transition: none !important; } .feature-slide.slide-enter, .feature-slide.outgoing { animation: none; } }
+
+/* Project reading and presentation controls. */
+.intro-copy { max-width: 660px; }
+.feature-bottom { flex-wrap: wrap; padding: 12px 18px; }
+.carousel-navigation { flex: 1; min-width: 0; }
+.slide-dots { flex: 1; gap: 4px; overflow-x: auto; padding: 4px; }
+.slide-dot { width: auto; height: auto; min-height: 44px; padding: 9px 12px; white-space: nowrap; font-size: 12px; border-bottom: 2px solid transparent; }
+.slide-dot span, .slide-dot.active span { width: auto; height: auto; border-radius: 0; background: none; }
+.slide-dot { color: var(--muted); }
+.slide-dot.active { color: white; border-bottom-color: var(--red); }
+.slide-dot:hover { color: white; background: #202c3e; }
+.carousel-arrow { flex-shrink: 0; min-width: 44px; min-height: 44px; }
+.tour-tools { margin-left: auto; }
+.reading-tabs { border-bottom: 1px solid var(--line); gap: 24px; }
+.reading-tabs button { border: 0; border-bottom: 2px solid transparent; border-radius: 0; padding: 12px 0; background: none; color: var(--muted); min-height: 44px; }
+.reading-tabs button.active { background: none; color: white; border-bottom-color: #8bb4ed; }
+dialog { padding: 0 32px 28px; }
+.dialog-top { position: sticky; top: 0; z-index: 3; background: #121a27; padding: 18px 0; margin-bottom: 6px; border-bottom: 1px solid var(--line); }
+#dialog-title { margin-top: 5px; margin-bottom: 20px; }
+#dialog-body > .eyebrow { margin-top: 20px; }
+.explanation { min-height: 0; }
+.explanation > p { margin: 20px 0; }
+.project-purpose { padding-left: 16px; border-left: 2px solid #5477a7; color: #b6c6db; }
+.engineering-notes { margin: 24px 0; }
+.engineering-notes > div { border-top: 1px solid var(--line); padding: 18px 0; }
+.engineering-notes dt { font-weight: 600; color: #eef2f8; margin-bottom: 7px; }
+.engineering-notes dd { margin: 0; color: #b7c5d9; font-size: 14px; }
+.project-limitation { font-size: 13px; color: #a7b4c7; }
+.evidence-links { margin: 22px 0 28px; }
+.evidence-links h3 { font-size: 14px; margin: 0 0 6px; }
+.evidence-links a { display: flex; width: fit-content; color: #a9cbfa; text-decoration: underline; text-underline-offset: 4px; }
+.activity { border-top: 1px solid #445168; border-bottom: 1px solid #445168; margin-top: 24px; }
+.activity summary { padding: 18px 0; cursor: pointer; font-size: 15px; }
+.activity summary span { font-size: 12px; color: var(--muted); float: right; margin-top: 2px; }
+.activity summary:focus-visible, .related-repos summary:focus-visible { outline: 2px solid #91b5e5; outline-offset: 3px; }
+.activity .demo-panel { margin: 0 0 18px; }
+.related-repos { margin-top: 20px; font-size: 13px; color: var(--muted); }
+.related-repos summary { cursor: pointer; padding: 10px 0; }
+.related-repos > div { display: grid; gap: 12px; padding: 10px 0; }
+.related-link { overflow-wrap: anywhere; }
+.network-note { font-size: 12px; color: var(--muted); line-height: 1.6; }
+.field-bot { width: 6%; height: 12%; min-width: 24px; padding: 0; display: grid; place-items: center; }
+.route { stroke-width: .65; stroke-dasharray: 2 2; }
+.collecting .route path { d: path('M 13 79 L 68 79'); }
+.scoring .route path { d: path('M 13 79 L 33 79 L 33 23 L 88 23'); }
+.field-caption { font-family: inherit; font-size: 10px; line-height: 1.4; }
+@media (max-width: 1100px) {
+  .carousel-navigation { flex-basis: 100%; }
+}
+@media (max-width: 760px) {
+  dialog { padding: 0 20px 20px; }
+  .feature-bottom { padding: 10px; }
+  .carousel-navigation { width: 100%; }
+  .slide-dots { scrollbar-width: thin; }
+  .slide-dot { padding: 9px 11px; font-size: 12px; }
+  .tour-tools { width: 100%; justify-content: space-between; }
+  .tour-tools .mono { display: inline; }
+  .intro { gap: 16px; }
+  .intro-copy { max-width: 520px; }
+  .feature-copy h2 { font-size: 30px; }
+  .activity summary span { float: none; margin-left: 12px; }
+}
+
+[hidden] { display: none !important; }
+@media (min-width: 761px) {
+  body:not(.showcase-mode) .feature-slide { min-height: 490px; }
+}
+@media (max-width: 420px) {
+  .tour-tools { gap: 8px; }
+  .tour-tools .mono { font-size: 10px; }
+  .activity summary span { display: block; margin: 6px 0 0 16px; }
+}
+
+.field-goal { right: 7%; width: 10%; height: 22%; font-size: 10px; }
+@media (min-width: 761px) and (min-height: 600px) {
+  .showcase-mode main { height: calc(100dvh - 88px); padding: 20px 4%; }
+  .showcase-mode .featured { height: 100%; min-height: 0; }
+  .showcase-mode .carousel-viewport { min-height: 0; }
+  .showcase-mode .feature-slide { min-height: 0; height: 100%; }
+  .showcase-mode .feature-bottom { flex-shrink: 0; }
+}
+@media (min-width: 761px) and (min-height: 600px) and (max-aspect-ratio: 1/1) {
+  .showcase-mode .feature-slide { grid-template-rows: minmax(0, 48%) minmax(0, 1fr); }
+  .showcase-mode .feature-visual { min-height: 0; }
+}
