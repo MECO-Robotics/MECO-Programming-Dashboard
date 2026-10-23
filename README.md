@@ -29,7 +29,7 @@ The link labeled “East Orlando, Florida” and “Team website” opens the te
 | Mission Control | [meco-mission-control-web](https://github.com/MECO-Robotics/meco-mission-control-web) | meco-mission-control-mobile, meco-mission-control-platform |
 | AutoDrive | [AutoDrive](https://github.com/MECO-Robotics/AutoDrive) | — |
 
-Content and engineering evidence were checked against the public repository READMEs on October 23, 2026. Mission Control is explicitly labeled as a prototype. The mini activities and field paths are educational illustrations, not embedded production applications or live telemetry. The scouting panel shows a QRScout screenshot, and the Mission Control panel lists its prototype modules. AutoDrive's actual training uses PPO defense and AD* route planning; the exhibit does not execute that engine.
+Content and engineering evidence were checked against the public repository READMEs on October 23, 2026. Mission Control is explicitly labeled as a prototype. The mini activities and field paths are educational illustrations, not embedded production applications or live telemetry. The scouting panel shows a QRScout screenshot, and the Mission Control panel shows its prototype task interface with demo data. AutoDrive's actual training uses PPO defense and AD* route planning; the exhibit does not execute that engine.
 
 ## Editing the exhibit
 
@@ -57,7 +57,7 @@ The test suite covers project filters, activities, carousel wraparound, touch sw
 - `public/assets/meco-logo.svg`: MECO's white logo, sourced from the existing Mission Control web repository's `public/meco-main-logo-white.svg`.
 - `public/assets/remy.jpg`: Remy photograph from [MECO's 2026 REBUILT page](https://www.mecorobotics.org/frc/2026-rebuilt). Team branding and photography remain the property of their respective owners.
 - `public/assets/scouting-preview.png`: captured from the live [MECO QRScout app](https://meco-robotics.github.io/QRScout_MECO/) on October 23, 2026, showing its dark TEAM 8324 interface. Only browser chrome was cropped out.
-- `public/assets/mission-preview.png`: prototype task screenshot from [Mission Control](https://github.com/MECO-Robotics/meco-mission-control-web/blob/main/docs/ui-audit/task-desktop.png).
+- `public/assets/mission-preview.png`: prototype task screenshot with demo data, used in the feature panel and directory, from [Mission Control](https://github.com/MECO-Robotics/meco-mission-control-web/blob/main/docs/ui-audit/task-desktop.png).
 - `public/assets/autodrive-preview.png`: user-provided AutoDrive simulation screenshot, displayed in the feature panel and directory. The optional activity remains a separate route illustration.
 - Team background: [MECO Robotics](https://www.mecorobotics.org/).
 
