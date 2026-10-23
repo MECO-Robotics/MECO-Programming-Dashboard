@@ -22,7 +22,7 @@ function visual(p) {
  if(p.id==='auto') return `<div class="visual-demo"><p class="mono">Route planning</p>${fieldMarkup()}<span class="visual-note">Example route around an obstacle.</span></div>`;
  if(p.id==='scouting') return `<div class="visual-demo"><p class="mono">Scouting data</p><div class="chart"><div style="--height:45%"><span>12</span></div><div style="--height:70%"><span>20</span></div><div style="--height:95%"><span>28</span></div><div style="--height:60%"><span>17</span></div></div><span class="visual-note">Game pieces scored in four sample matches. <small>Illustrative data</small></span></div>`;
  if(p.id==='mission') return `<div class="visual-demo"><p class="mono">Build tasks</p><div class="mini-board"><div>TO DO<span>Check the battery</span><span>Pack the toolbox</span></div><div>IN PROGRESS<span>Test the intake</span></div><div>READY<span>✓ Review the code</span></div></div><span class="visual-note">Sample task board <small>Illustrative data</small></span></div>`;
- return `<div class="note-photo-stage"><img class="note-photo" src="${asset('16th-note-4k.png')}" width="3840" height="3280" alt="16th Note, the small tank-drive robot with a red 9924 bumper, in the team workshop"></div><div class="photo-caption">16TH NOTE <span>TANK-DRIVE ROBOT</span></div>`;
+ return `<div class="note-photo-stage"><img class="note-photo" src="${asset('16th-note-4k.png')}" width="3840" height="3280" alt="la Petit Fromage, the small tank-drive robot with a red 9924 bumper, in the team workshop"></div><div class="photo-caption">la Petit Fromage <span>TANK-DRIVE ROBOT</span></div>`;
 }
 let transitionCleanup;
 function changeSlide(index, direction = 1) {

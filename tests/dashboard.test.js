@@ -80,7 +80,7 @@ test('carousel keeps selected dot focus and pauses automatic advancement while e
  ui.click('#tour');
  ui.doc.querySelector('#feature-copy button').focus();
  for(let i=0;i<20;i++)ui.tick();
- assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/16th Note/);
+ assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/la Petit Fromage/);
  ui.doc.querySelector('#tour').focus();
  for(let i=0;i<10;i++)ui.tick();
  assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Mission Control/);

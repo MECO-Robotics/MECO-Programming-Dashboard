@@ -65,15 +65,15 @@ export const projects = [
   },
   {
     "id": "note",
-    "title": "16th Note",
-    "name": "16th Note",
+    "title": "la Petit Fromage",
+    "name": "la Petit Fromage",
     "category": "Robots",
     "label": "Tank-drive robot",
     "color": "#91b5e5",
     "repo": "16th_Note",
     "language": "Java",
     "hook": "Driving, intake, and shooter code for our small tank-drive robot.",
-    "simple": "16th Note steers by changing the speed of its left and right wheels. Its code also controls the intake and shooter.",
+    "simple": "la Petit Fromage steers by changing the speed of its left and right wheels. Its code also controls the intake and shooter.",
     "technical": "The tank drivetrain uses the rebuilt command/subsystem/IO structure, AdvantageKit logs, SPARK MAX control, and PathPlanner autonomous routines.",
     "challenge": "Put the scoring actions in order.",
     "steps": [

@@ -17,7 +17,7 @@ Visit **[MECO Programming Dashboard](https://meco-robotics.github.io/MECO-Progra
 
 An internet connection is required to open the GitHub Pages site and external project websites. The exhibit activities run in the browser without sending data to a server.
 
-The “East Orlando, Florida” location and “Team website” link open the team website. Project website buttons appear on the carousel, project cards, and project dialogs. Available destinations include Remy's season page and 3D viewer, QRScout and its legacy preview, FieldScout downloads, Mission Control at `https://meco-pm.duckdns.org/`, and the AutoDrive training monitor. The AutoDrive monitor is labeled **team network** because its `100.121.248.52:8765` address requires access to that network; it is not a public website. Website links open in a new tab. 16th Note has no configured website.
+The “East Orlando, Florida” location and “Team website” link open the team website. Project website buttons appear on the carousel, project cards, and project dialogs. Available destinations include Remy's season page and 3D viewer, QRScout and its legacy preview, FieldScout downloads, Mission Control at `https://meco-pm.duckdns.org/`, and the AutoDrive training monitor. The AutoDrive monitor is labeled **team network** because its `100.121.248.52:8765` address requires access to that network; it is not a public website. Website links open in a new tab. la Petit Fromage has no configured website.
 
 ## Featured projects
 
@@ -25,7 +25,7 @@ The “East Orlando, Florida” location and “Team website” link open the te
 | --- | --- | --- |
 | Remy | [2026-Rebuilt](https://github.com/MECO-Robotics/2026-Rebuilt) | — |
 | Scouting | [FieldScout](https://github.com/MECO-Robotics/FieldScout) | QRScout_MECO, QRScout-Legacy, QRScout-app- |
-| 16th Note | [16th_Note](https://github.com/MECO-Robotics/16th_Note) | — |
+| la Petit Fromage | [16th_Note](https://github.com/MECO-Robotics/16th_Note) | — |
 | Mission Control | [meco-mission-control-web](https://github.com/MECO-Robotics/meco-mission-control-web) | meco-mission-control-mobile, meco-mission-control-platform |
 | AutoDrive | [AutoDrive](https://github.com/MECO-Robotics/AutoDrive) | — |
 
@@ -57,7 +57,7 @@ The test suite covers project filters, activities, showcase timing and wraparoun
 - `public/assets/remy.jpg`: Remy photograph from [MECO's 2026 REBUILT page](https://www.mecorobotics.org/frc/2026-rebuilt). Team branding and photography remain the property of their respective owners.
 - Team background: [MECO Robotics](https://www.mecorobotics.org/).
 
-16th Note displays `public/assets/16th-note-4k.png` (3840 × 3280 pixels). The original 192 × 164 screenshot remains unchanged at `public/assets/16th-note-original.png`. The display asset was conservatively restored with built-in imagegen, then resized to a 3840-pixel long edge. It remains soft: an upscale cannot recover missing source detail. CSS fades its edges into the navy background and applies a small contrast adjustment. Display width remains capped at 384px to avoid excessive enlargement. There are no music-note graphics.
+la Petit Fromage displays `public/assets/16th-note-4k.png` (3840 × 3280 pixels). The original 192 × 164 screenshot remains unchanged at `public/assets/16th-note-original.png`. The display asset was conservatively restored with built-in imagegen, then resized to a 3840-pixel long edge. It remains soft: an upscale cannot recover missing source detail. CSS fades its edges into the navy background and applies a small contrast adjustment. Display width remains capped at 384px to avoid excessive enlargement. There are no music-note graphics.
 
 ### Image restoration prompt
 
