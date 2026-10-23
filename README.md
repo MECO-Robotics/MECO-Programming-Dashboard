@@ -2,16 +2,9 @@
 
 An outreach exhibit for FRC Team 8324 MECO Robotics: explore our GitHub projects, try small interactive activities, or run a rotating showcase on a monitor. Built with vanilla JavaScript, CSS, and Vite. No backend, account, API key, or live robot connection is required.
 
-## Run locally
+## Open the dashboard
 
-Use Node.js 22.12+ (Node 24 recommended).
-
-```sh
-npm ci
-npm run dev
-```
-
-Open the local URL printed by Vite (normally http://127.0.0.1:5173). Keep the terminal running while using the exhibit.
+Visit **[MECO Programming Dashboard](https://meco-robotics.github.io/MECO-Programming-Dashboard/)** in your browser. No installation or terminal is needed.
 
 ## At an outreach event
 
@@ -22,7 +15,7 @@ Open the local URL printed by Vite (normally http://127.0.0.1:5173). Keep the te
 - **Keyboard:** Tab navigates controls; Enter/Space activates buttons. Escape closes the project dialog and stops the showcase. Left/Right changes the featured project when focus is outside a button, link, input, or dialog.
 - The exhibit supports landscape, portrait, and small screens, keyboard focus indicators, native modal focus containment, and reduced-motion preferences.
 
-Install dependencies before traveling. Once the local server is running, the dashboard, bundled images, and activities work without internet. GitHub, the team website, and the external QRScout app require internet. This is not a service-worker-cached offline website; hosted copies still need a connection to load initially.
+An internet connection is required to open the GitHub Pages site and external project websites. The exhibit activities run in the browser without sending data to a server.
 
 The “From East Orlando to the competition field” link opens the team website (replacing the former “Meet the team” navigation item). Project website buttons appear on the carousel, project cards, and project dialogs. Available destinations include Remy's season page and 3D viewer, QRScout and its legacy preview, FieldScout downloads, Mission Control at `https://meco-pm.duckdns.org/`, and the AutoDrive training monitor. The AutoDrive monitor is labeled **team network** because its `100.121.248.52:8765` address requires access to that network; it is not a public website. Website links open in a new tab. 16th Note has no configured website.
 
@@ -43,21 +36,19 @@ Content was checked against the public repository READMEs on October 22, 2026. M
 - `src/projects.js`: project titles, categories, repository links, `websites` button labels/URLs, explanations, and accent colors.
 - `src/main.js`: rendering, project visuals, demos, showcase timing, and controls.
 - `src/style.css`: MECO theme, responsive layouts, and monitor mode.
-- `public/assets/`: locally bundled team logo and robot photos.
+- `public/assets/`: bundled team logo and robot photos.
 
 When adding a project, add its content to `projects.js` and provide an appropriate visual/activity in `main.js`. Update the five-project labels and counters in `main.js` as needed. There is no GitHub API dependency: descriptions and repository links are curated, rather than fetched at runtime.
 
-## Verify and build
+## Publishing through GitHub Pages
 
-```sh
-npm test
-npm run build
-npm run preview
-```
+Every push to `main` runs `.github/workflows/pages.yml`. GitHub Actions installs the locked dependencies with Node.js 24, runs the seven interaction tests, builds the website, and deploys `dist/` to GitHub Pages. A failing test or build prevents deployment.
 
-Tests run the actual application source in jsdom and cover filters, scoring feedback/reset, technical explanations, the scouting counter, showcase timing/wrap/pause, carousel direction and inactive-slide accessibility, focus preservation, checklists, and route controls. jsdom stubs the browser's dialog/full-screen-adjacent environment; visual layout and native interactions need browser review.
+To publish an update, commit and push your changes to `main`. Check progress under the repository's **Actions** tab. To republish without a new commit, select **Deploy dashboard to GitHub Pages → Run workflow**.
 
-`npm run build` creates `dist/`. The relative Vite base supports static hosting at either a domain root or a repository subpath such as GitHub Pages. Publish the contents of `dist/` through your chosen host. No hosting account or deployment has been configured by this project.
+Repository **Settings → Pages → Source** must be **GitHub Actions**. Vite's base path is `/MECO-Programming-Dashboard/`, matching the repository's Pages URL. If the repository name or hosting domain changes, update `vite.config.js` and the website link above.
+
+The test suite covers project filters, activities, showcase timing and wraparound, carousel accessibility, and focus preservation. Visual layout and native browser interactions still require browser review.
 
 ## Branding and asset credits
 

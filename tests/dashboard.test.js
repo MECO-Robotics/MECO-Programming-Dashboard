@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { JSDOM } from 'jsdom';
 
 function setup() {
-  const dom = new JSDOM('<div id="app"></div>', { runScripts: 'outside-only', url: 'http://localhost/' });
+  const dom = new JSDOM('<div id="app"></div>', { runScripts: 'outside-only', url: 'https://meco-robotics.github.io/MECO-Programming-Dashboard/' });
   const { window } = dom;
   let tick;
   window.setInterval = fn => { tick = fn; return 1; };
