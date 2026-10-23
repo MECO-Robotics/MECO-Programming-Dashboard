@@ -1,12 +1,18 @@
-/* MECO exhibit identity: team-blue masthead, paper catalog, photographic stage. */
+/* MECO exhibit identity: team-blue masthead, dark catalog, photographic stage. */
 :root {
-  color: #182538;
-  background: #f3f1eb;
-  --muted: #576170;
-  --line: #cacbc8;
+  color-scheme: dark;
+  --page: #101720;
+  --surface: #18222f;
+  --text: #f1f3f6;
+  --body-text: #c2ccd9;
+  --muted: #a9b6c8;
+  --link: #a8c9f6;
+  color: var(--text);
+  background: var(--page);
+  --line: #354252;
   --display: 'Arial Narrow', 'Avenir Next Condensed', 'Helvetica Neue', sans-serif;
 }
-body { background: #f3f1eb; }
+body { background: var(--page); }
 header {
   color: white;
   background: #16478e;
@@ -21,11 +27,11 @@ main, footer { max-width: 1440px; padding-inline: 48px; }
 header { padding-inline: max(48px, calc((100% - 1344px) / 2)); }
 .intro { align-items: end; padding: 52px 0 40px; border-bottom: 0; }
 .intro > div { max-width: 910px; }
-.intro .eyebrow { color: #16478e; font-size: 12px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; margin-bottom: 14px; }
+.intro .eyebrow { color: var(--link); font-size: 12px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; margin-bottom: 14px; }
 h1 { font-family: var(--display); font-size: clamp(46px, 6.2vw, 84px); font-weight: 800; line-height: .98; letter-spacing: -2px; }
-.intro-copy { max-width: 620px; margin-top: 22px; font-size: 16px; color: #465364; }
-.team-website-link { color: #576170; flex-shrink: 0; padding-bottom: 3px; }
-.team-website-link span { color: #16478e; font-weight: 600; }
+.intro-copy { max-width: 620px; margin-top: 22px; font-size: 16px; color: var(--body-text); }
+.team-website-link { color: var(--muted); flex-shrink: 0; padding-bottom: 3px; }
+.team-website-link span { color: var(--link); font-weight: 600; }
 .featured {
   --muted: #acb7c5;
   --line: #3b4149;
@@ -40,10 +46,10 @@ h1 { font-family: var(--display); font-size: clamp(46px, 6.2vw, 84px); font-weig
 .feature-number { color: #fff; }
 .feature-copy > p:not(.eyebrow) { font-size: 16px; line-height: 1.65; color: #d2d7df; }
 .button, .icon-button, .carousel-arrow { border-radius: 0; }
-.featured .primary { background: #f3f1eb; color: #17263c; border-color: #f3f1eb; }
-.featured .primary:hover { background: #cddcf1; border-color: #cddcf1; }
+.featured .primary { background: #16478e; color: white; border-color: #5685c5; }
+.featured .primary:hover { background: #205cae; border-color: #a8c9f6; }
 .feature-bottom { background: #101720; }
-.feature-visual, .software-diagram, .visual-demo { background: #101720; }
+.feature-visual, .software-diagram, .visual-demo, .note-photo-stage { background: #101720; }
 .photo-caption { font-size: 11px; letter-spacing: .8px; }
 .software-diagram { padding: 42px; }
 .diagram-heading { font-size: 17px; }
@@ -53,47 +59,47 @@ h1 { font-family: var(--display); font-size: clamp(46px, 6.2vw, 84px); font-weig
 .section-heading { align-items: end; }
 .section-heading h2 { font-family: var(--display); font-size: 38px; font-weight: 750; letter-spacing: -.7px; }
 .section-heading > p { font-size: 12px; }
-.project-toolbar { margin-top: 24px; border-bottom: 2px solid #182538; }
-.filter { color: #576170; font-size: 14px; }
-.filter:hover, .filter.active { color: #16478e; }
+.project-toolbar { margin-top: 24px; border-bottom: 2px solid #586b82; }
+.filter { color: var(--muted); font-size: 14px; }
+.filter:hover, .filter.active { color: var(--link); }
 .filter.active { border-bottom-color: #ea1c2d; font-weight: 650; }
 .project-card { grid-template-columns: 60px minmax(0, 1fr) minmax(210px, 26%); padding: 34px 0; gap: 22px; }
-.project-index { color: #a12b34; font: 600 28px/1 var(--display); padding-top: 5px; }
-.card-category { color: #576170; font-size: 12px; }
+.project-index { color: #ef7a83; font: 600 28px/1 var(--display); padding-top: 5px; }
+.card-category { color: var(--muted); font-size: 12px; }
 .project-card h3 { font-family: var(--display); font-weight: 750; font-size: 36px; line-height: 1.1; margin: 8px 0 12px; }
-.project-card p { color: #465364; font-size: 15px; max-width: 550px; }
-.project-language { color: #576170; }
-.project-links { border-left: 1px solid #c4c7cb; }
-.repository-link, .directory-link, .directory-details { color: #16478e; }
+.project-card p { color: var(--body-text); font-size: 15px; max-width: 550px; }
+.project-language { color: var(--muted); }
+.project-links { border-left: 1px solid var(--line); }
+.repository-link, .directory-link, .directory-details { color: var(--link); }
 .repository-link { font-weight: 700; }
-footer { border-top: 2px solid #182538; font-size: 12px; color: #465364; padding-top: 24px; padding-bottom: 30px; }
-footer a:hover { color: #16478e; text-decoration: underline; }
-/* Reading sheets use the same paper and ink as the project catalog. */
-dialog { --muted: #576170; --line: #c7cbd0; background: #f3f1eb; color: #182538; border: 0; border-top: 5px solid #16478e; border-radius: 0; box-shadow: 0 18px 60px #0006; }
+footer { border-top: 2px solid #586b82; font-size: 12px; color: var(--body-text); padding-top: 24px; padding-bottom: 30px; }
+footer a:hover { color: var(--link); text-decoration: underline; }
+/* Project details and activities share the catalog’s dark palette. */
+dialog { background: var(--surface); color: var(--text); border: 0; border-top: 5px solid #16478e; border-radius: 0; box-shadow: 0 18px 60px #0006; }
 dialog::backdrop { background: #101720bb; }
-.dialog-top { background: #f3f1eb; border-bottom-color: #c7cbd0; }
-.dialog-top .icon-button { border-color: #9ca5b0; color: #182538; }
+.dialog-top { background: var(--surface); border-bottom-color: var(--line); }
+.dialog-top .icon-button { border-color: #586b82; color: var(--text); }
 #dialog-title { font: 750 44px/1.1 var(--display); letter-spacing: -1px; }
-.reading-tabs button { color: #576170; }
-.reading-tabs button.active { color: #16478e; border-bottom-color: #16478e; }
-.explanation { color: #26394d; font-size: 16px; }
-.project-purpose { color: #465364; border-left-color: #16478e; }
-.engineering-notes dt { color: #182538; font-size: 17px; }
-.engineering-notes dd { color: #465364; font-size: 15px; }
-.project-limitation, .network-note { color: #576170; }
-.evidence-links a, .related-link { color: #16478e; }
-.activity { border-color: #aeb6c0; }
-.demo-panel { background: #e7ebee; border: 0; border-radius: 0; }
-.demo-panel p { color: #465364; }
-dialog .outline, dialog .subtle { color: #16478e; border-color: #9caabb; }
-dialog .outline:hover, dialog .subtle:hover { background: #d3dce8; }
-dialog .icon-button { background: #f3f1eb; color: #16478e; border-color: #9caabb; }
-.sequence-slots span { background: #f3f1eb; border-color: #8392a5; }
-.sequence-slots .filled { border-color: #16478e; }
-.checklist label { background: #f3f1eb; border-color: #b3bcc7; }
-.checklist input:checked + span { color: #465364; }
-.checklist input { accent-color: #16478e; }
-button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible { outline-color: #b12836; }
+.reading-tabs button { color: var(--muted); }
+.reading-tabs button.active { color: var(--link); border-bottom-color: var(--link); }
+.explanation { color: var(--body-text); font-size: 16px; }
+.project-purpose { color: var(--body-text); border-left-color: var(--link); }
+.engineering-notes dt { color: var(--text); font-size: 17px; }
+.engineering-notes dd { color: var(--body-text); font-size: 15px; }
+.project-limitation, .network-note { color: var(--muted); }
+.evidence-links a, .related-link { color: var(--link); }
+.activity { border-color: var(--line); }
+.demo-panel { background: var(--page); border: 0; border-radius: 0; }
+.demo-panel p { color: var(--body-text); }
+dialog .outline, dialog .subtle { color: var(--link); border-color: #586b82; }
+dialog .outline:hover, dialog .subtle:hover { background: #25364b; }
+dialog .icon-button { background: var(--surface); color: var(--link); border-color: #586b82; }
+.sequence-slots span { background: var(--surface); border-color: #647790; }
+.sequence-slots .filled { border-color: var(--link); }
+.checklist label { background: var(--surface); border-color: #586b82; }
+.checklist input:checked + span { color: var(--body-text); }
+.checklist input { accent-color: var(--link); }
+button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible { outline-color: var(--link); }
 .featured button:focus-visible, .featured a:focus-visible, header button:focus-visible, header a:focus-visible { outline-color: #fff; }
 .showcase-mode { background: #101720; }
 .showcase-mode .feature-copy h2 { font-family: var(--display); }
