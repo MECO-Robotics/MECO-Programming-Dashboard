@@ -123,7 +123,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 /* Manual carousel: navigation stays on the panel, with room around the copy. */
 .feature-panel { position: relative; }
 .feature-panel .feature-copy { padding-inline: 64px 36px; }
-.feature-panel .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 4; width: 44px; height: 44px; border-color: #74859a; background: #101720ed; color: white; box-shadow: 0 2px 12px #0005; }
+.feature-panel .carousel-arrow { position: absolute; top: 245px; transform: translateY(-50%); z-index: 4; width: 44px; height: 44px; border-color: #74859a; background: #101720ed; color: white; box-shadow: 0 2px 12px #0005; }
 .feature-panel .carousel-arrow:hover { background: #16478e; }
 .feature-panel .previous { left: 10px; }
 .feature-panel .next { right: 10px; }
@@ -165,3 +165,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 
 .slide-dots { display: flex; align-items: center; min-width: 0; }
 @media (min-width: 761px) { .feature-slide { min-height: 490px; } }
+
+/* Images do not resize the slide or move its navigation controls. */
+.feature-visual > .software-preview, .feature-visual > .note-photo-stage { position: absolute; inset: 0; min-height: 0; }
+.feature-visual .software-preview img { min-height: 0; max-height: calc(100% - 90px); object-fit: contain; }
+.carousel-viewport { cursor: grab; touch-action: pan-y pinch-zoom; }
+.carousel-viewport.dragging { cursor: grabbing; user-select: none; }
+.carousel-viewport img { -webkit-user-drag: none; user-select: none; }
+@media (max-width: 760px) {
+ .feature-visual { height: 300px; min-height: 300px; }
+ .feature-panel .carousel-arrow { top: 150px; }
+}

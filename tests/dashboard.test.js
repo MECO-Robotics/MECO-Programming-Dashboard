@@ -142,7 +142,7 @@ test('horizontal trackpad gestures advance once while vertical scrolling stays n
 });
 test('touch swipes navigate but vertical gestures and canceled touches do not',()=>{
  const ui=setup();const viewport=ui.doc.querySelector('.carousel-viewport');
- const touch=(type,x,y)=>{const e=new ui.window.Event(type);e.changedTouches=[{clientX:x,clientY:y}];viewport.dispatchEvent(e);};
+ const touch=(type,x,y)=>{const e=new ui.window.Event(type);e.changedTouches=[{clientX:x,clientY:y,identifier:1}];e.touches=type==='touchstart'?e.changedTouches:[];viewport.dispatchEvent(e);};
  touch('touchstart',200,100);touch('touchend',100,110);
  assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Scouting/);
  touch('touchstart',100,100);touch('touchend',200,110);
@@ -162,4 +162,50 @@ test('every directory preview opens its project and scouting shows a screenshot'
  }
  ui.click('[data-slide="1"]');assert.match(ui.doc.querySelector('#feature-visual img').src,/scouting-preview/);
  ui.close();
+});
+
+test('every slide supports swipes from its image and text in both directions, including wraparound',()=>{
+ const ui=setup();
+ const names=['Remy','Scouting software','La Petit Fromage','Mission Control','AutoDrive'];
+ for(const region of ['#feature-visual img','#feature-copy p']) {
+  for(const direction of [1,-1]) {
+   for(let i=0;i<5;i++) {
+    ui.click(`[data-slide="${i}"]`);
+    const target=ui.doc.querySelector(region);
+    for(const [type,x] of [['touchstart',200],['touchend',200-direction*120]]) {
+     const e=new ui.window.Event(type,{bubbles:true});
+     e.changedTouches=[{clientX:x,clientY:100,identifier:7}];e.touches=type==='touchstart'?e.changedTouches:[];
+     target.dispatchEvent(e);
+    }
+    assert.equal(ui.doc.querySelector('#feature-copy h2').textContent,names[(i+direction+5)%5]);
+   }
+  }
+ }
+ ui.close();
+});
+test('mouse dragging navigates every slide without opening a project accidentally',()=>{
+ const ui=setup();const viewport=ui.doc.querySelector('.carousel-viewport');
+ for(let i=0;i<5;i++) {
+  ui.click(`[data-slide="${i}"]`);
+  for(const [type,x] of [['pointerdown',200],['pointermove',100],['pointerup',80]]) {
+   const e=new ui.window.MouseEvent(type,{bubbles:true,clientX:x,clientY:100,button:0});
+   Object.defineProperties(e,{pointerType:{value:'mouse'},pointerId:{value:1}});
+   viewport.dispatchEvent(e);
+  }
+  assert.equal(ui.doc.querySelector('[data-slide="'+((i+1)%5)+'"]').getAttribute('aria-pressed'),'true');
+  ui.click('#feature-copy [data-open]');assert.equal(ui.doc.querySelector('dialog').open,false);
+  assert.ok(!viewport.classList.contains('dragging'));
+ }
+ ui.close();
+});
+
+test('trackpad navigation works forward and backward from every slide',()=>{
+ for(let i=0;i<5;i++) for(const direction of [1,-1]) {
+  const ui=setup();ui.click(`[data-slide="${i}"]`);
+  const image=ui.doc.querySelector('#feature-visual img');
+  image.dispatchEvent(new ui.window.WheelEvent('wheel',{bubbles:true,cancelable:true,deltaX:direction*100,deltaY:2}));
+  const index=(i+direction+5)%5;
+  assert.equal(ui.doc.querySelector(`[data-slide="${index}"]`).getAttribute('aria-pressed'),'true');
+  ui.close();
+ }
 });

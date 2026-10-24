@@ -122,16 +122,58 @@ dialog.addEventListener('change',()=>{const checked=dialog.querySelectorAll('inp
 dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
 document.addEventListener('fullscreenchange',()=>{document.querySelector('#fullscreen span').textContent=document.fullscreenElement?'Exit full screen':'Full screen';});
 document.addEventListener('keydown',e=>{if(dialog.open||/INPUT|TEXTAREA|BUTTON|A/.test(document.activeElement.tagName))return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const direction=e.key==='ArrowRight'?1:-1;changeSlide(selected+direction,direction);}});
-let touchStart;
 const carouselViewport = document.querySelector('.carousel-viewport');
-carouselViewport.addEventListener('touchstart', e=>{const touch=e.changedTouches[0];touchStart={x:touch.clientX,y:touch.clientY};},{passive:true});
-carouselViewport.addEventListener('touchend', e=>{
- if(!touchStart)return;
- const touch=e.changedTouches[0], dx=touch.clientX-touchStart.x, dy=touch.clientY-touchStart.y;
- touchStart=undefined;
- if(Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5){const direction=dx<0?1:-1;changeSlide(selected+direction,direction);}
-},{passive:true});
-carouselViewport.addEventListener('touchcancel',()=>{touchStart=undefined;},{passive:true});
+let touchStart, dragStart, suppressClickUntil = 0;
+function finishSwipe(start, x, y) {
+ if(!start) return;
+ const dx = x - start.x, dy = y - start.y;
+ if(Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+  suppressClickUntil = Date.now() + 400;
+  const direction = dx < 0 ? 1 : -1;
+  changeSlide(selected + direction, direction);
+ }
+}
+carouselViewport.addEventListener('touchstart', e => {
+ if(e.touches.length !== 1) { touchStart = undefined; return; }
+ const touch = e.changedTouches[0];
+ touchStart = { x: touch.clientX, y: touch.clientY, id: touch.identifier };
+}, { passive: true });
+carouselViewport.addEventListener('touchend', e => {
+ const start = touchStart;
+ touchStart = undefined;
+ const touch = Array.from(e.changedTouches).find(t => t.identifier === start?.id);
+ if(touch) finishSwipe(start, touch.clientX, touch.clientY);
+}, { passive: true });
+carouselViewport.addEventListener('touchcancel', () => { touchStart = undefined; }, { passive: true });
+// Touch uses the handlers above; pointer capture keeps mouse/pen drags working
+// even when the pointer leaves the image or panel before release.
+carouselViewport.addEventListener('pointerdown', e => {
+ if(e.pointerType === 'touch' || e.button !== 0 || e.isPrimary === false) return;
+ dragStart = { x: e.clientX, y: e.clientY, id: e.pointerId };
+});
+carouselViewport.addEventListener('pointermove', e => {
+ if(!dragStart || e.pointerId !== dragStart.id) return;
+ if(Math.abs(e.clientX - dragStart.x) > 10) {
+  carouselViewport.setPointerCapture?.(e.pointerId);
+  carouselViewport.classList.add('dragging');
+ }
+});
+carouselViewport.addEventListener('pointerup', e => {
+ if(!dragStart || e.pointerId !== dragStart.id) return;
+ const start = dragStart;
+ dragStart = undefined;
+ carouselViewport.classList.remove('dragging');
+ if(carouselViewport.hasPointerCapture?.(e.pointerId)) carouselViewport.releasePointerCapture(e.pointerId);
+ finishSwipe(start, e.clientX, e.clientY);
+});
+for(const event of ['pointercancel', 'lostpointercapture']) carouselViewport.addEventListener(event, () => {
+ dragStart = undefined;
+ carouselViewport.classList.remove('dragging');
+});
+carouselViewport.addEventListener('dragstart', e => e.preventDefault());
+carouselViewport.addEventListener('click', e => {
+ if(Date.now() < suppressClickUntil) { e.preventDefault(); e.stopImmediatePropagation(); }
+}, true);
 let wheelDistance = 0, wheelLocked = false, wheelReset;
 carouselViewport.addEventListener('wheel', e => {
  if(Math.abs(e.deltaX) <= Math.abs(e.deltaY) || e.ctrlKey) return;
