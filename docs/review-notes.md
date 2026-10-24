@@ -1,3 +1,9 @@
+## Swipe regression review — October 24, 2026
+
+Reproduced a touch gesture that did nothing on the “Swipe to explore” strip: gesture handlers were attached only to the inner slide viewport. Moved them to the persistent outer carousel, covering images, text, controls, and the hint strip. Mouse release is tracked outside the panel, short horizontal swipes are accepted, and reversed trackpad gestures no longer remain locked as momentum. Keyboard activation is not suppressed after a swipe.
+
+Browser validation used a dedicated Chrome window and DevTools touch emulation. At 1280 × 800, swiped the hint strip forward through all five projects and back to Remy, image areas backward through all five and back to Remy, and text areas forward through the full cycle. At the iPhone 16 preset (393 × 852), swiped every image forward and backward, including both wraparound transitions. Native gestures drove these checks; they were not synthetic DOM events. The native automation tool produced zero horizontal wheel deltas, so trackpad-specific direction/momentum checks remain covered by the automated event tests rather than a physical trackpad test.
+
 > Update: The carousel is now manual, with floating arrows, touch swipes, and horizontal trackpad gestures. Slideshow controls and timing described in the historical review below have been removed. The directory now includes previews, and the scouting panel shows a repository screenshot.
 
 # Outreach and judging review

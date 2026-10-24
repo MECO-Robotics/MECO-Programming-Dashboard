@@ -129,7 +129,7 @@ test('completing a keyboard sequence moves focus to the enabled undo control', (
 
 test('horizontal trackpad gestures advance once while vertical scrolling stays native',async()=>{
  const ui=setup();const viewport=ui.doc.querySelector('.carousel-viewport');
- const wheel=(x,y)=>{const e=new ui.window.WheelEvent('wheel',{deltaX:x,deltaY:y,cancelable:true});viewport.dispatchEvent(e);return e;};
+ const wheel=(x,y)=>{const e=new ui.window.WheelEvent('wheel',{deltaX:x,deltaY:y,cancelable:true,bubbles:true});viewport.dispatchEvent(e);return e;};
  assert.equal(wheel(4,100).defaultPrevented,false);
  assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Remy/);
  assert.equal(wheel(70,2).defaultPrevented,true);
@@ -142,7 +142,7 @@ test('horizontal trackpad gestures advance once while vertical scrolling stays n
 });
 test('touch swipes navigate but vertical gestures and canceled touches do not',()=>{
  const ui=setup();const viewport=ui.doc.querySelector('.carousel-viewport');
- const touch=(type,x,y)=>{const e=new ui.window.Event(type);e.changedTouches=[{clientX:x,clientY:y,identifier:1}];e.touches=type==='touchstart'?e.changedTouches:[];viewport.dispatchEvent(e);};
+ const touch=(type,x,y)=>{const e=new ui.window.Event(type,{bubbles:true});e.changedTouches=[{clientX:x,clientY:y,identifier:1}];e.touches=type==='touchstart'?e.changedTouches:[];viewport.dispatchEvent(e);};
  touch('touchstart',200,100);touch('touchend',100,110);
  assert.match(ui.doc.querySelector('#feature-copy h2').textContent,/Scouting/);
  touch('touchstart',100,100);touch('touchend',200,110);
@@ -193,7 +193,7 @@ test('mouse dragging navigates every slide without opening a project accidentall
    viewport.dispatchEvent(e);
   }
   assert.equal(ui.doc.querySelector('[data-slide="'+((i+1)%5)+'"]').getAttribute('aria-pressed'),'true');
-  ui.click('#feature-copy [data-open]');assert.equal(ui.doc.querySelector('dialog').open,false);
+  ui.doc.querySelector('#feature-copy [data-open]').dispatchEvent(new ui.window.MouseEvent('click',{bubbles:true,cancelable:true,detail:1}));assert.equal(ui.doc.querySelector('dialog').open,false);
   assert.ok(!viewport.classList.contains('dragging'));
  }
  ui.close();
@@ -208,4 +208,23 @@ test('trackpad navigation works forward and backward from every slide',()=>{
   assert.equal(ui.doc.querySelector(`[data-slide="${index}"]`).getAttribute('aria-pressed'),'true');
   ui.close();
  }
+});
+
+test('swipes on the hint, navigation strip, arrows, and links work on every project',()=>{
+ const ui=setup();
+ for(let i=0;i<5;i++) for(const region of ['.swipe-hint','.feature-bottom','[data-direction="1"]','#feature-copy a']) {
+  ui.click(`[data-slide="${i}"]`);
+  const target=ui.doc.querySelector(region);
+  for(const [type,x] of [['touchstart',150],['touchend',100]]) {
+   const e=new ui.window.Event(type,{bubbles:true});
+   e.changedTouches=[{clientX:x,clientY:100,identifier:2}];e.touches=type==='touchstart'?e.changedTouches:[];target.dispatchEvent(e);
+  }
+  assert.equal(ui.doc.querySelector(`[data-slide="${(i+1)%5}"]`).getAttribute('aria-pressed'),'true');
+ }
+ ui.close();
+});
+test('a reversed trackpad gesture is accepted immediately rather than discarded as momentum',()=>{
+ const ui=setup();const target=ui.doc.querySelector('.swipe-hint');
+ for(const delta of [80,-80]) target.dispatchEvent(new ui.window.WheelEvent('wheel',{bubbles:true,cancelable:true,deltaX:delta,deltaY:0}));
+ assert.equal(ui.doc.querySelector('[data-slide="0"]').getAttribute('aria-pressed'),'true');ui.close();
 });

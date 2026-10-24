@@ -169,8 +169,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 /* Images do not resize the slide or move its navigation controls. */
 .feature-visual > .software-preview, .feature-visual > .note-photo-stage { position: absolute; inset: 0; min-height: 0; }
 .feature-visual .software-preview img { min-height: 0; max-height: calc(100% - 90px); object-fit: contain; }
-.carousel-viewport { cursor: grab; touch-action: pan-y pinch-zoom; }
-.carousel-viewport.dragging { cursor: grabbing; user-select: none; }
+.featured { cursor: grab; touch-action: pan-y pinch-zoom; }
+.featured .feature-visual, .featured .slide-dots { touch-action: pan-y pinch-zoom; }
+.featured.dragging, .featured.dragging * { cursor: grabbing; user-select: none; }
 .carousel-viewport img { -webkit-user-drag: none; user-select: none; }
 @media (max-width: 760px) {
  .feature-visual { height: 300px; min-height: 300px; }
